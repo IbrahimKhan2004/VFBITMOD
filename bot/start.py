@@ -1528,6 +1528,7 @@ async def _change_metadata(event):
         if not metadata_event:
             return
         custom_metadata_list = str(metadata_event.message.message)
+        custom_metadata = []
         for m in custom_metadata_list:
             mdata = str(m).strip().split('-')
             LOGGER.info(mdata)
