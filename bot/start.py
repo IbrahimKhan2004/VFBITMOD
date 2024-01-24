@@ -1527,15 +1527,16 @@ async def _change_metadata(event):
         metadata_event = await ask_text_event(chat_id, user_id, event, 120, "Send MetaData", message_hint="🔷`a` Is For Audio & `s` Is For Subtitle\n🔷 Send In The Format As Shown Below:\n\n`a:0-AudioLanguage-AudioTitle` (To Change Audio Number 1 Metadata)\n`s:0-SubLanguage-SubTitle` (To Change Subtitle Number 1 Metadata)\n\ne.g. `a:1-eng-nik66bots` (To Change Audio Number 2 Metadata)")
         if not metadata_event:
             return
-        custom_metadata_list = str(metadata_event.message.message)
+        custom_metadata_list = str(metadata_event.message.message).split('\n')
         custom_metadata = []
         for m in custom_metadata_list:
             mdata = str(m).strip().split('-')
             LOGGER.info(mdata)
             try:
-                mdtitle = custom_metadata = get_data()[user_id]['custom_metadata']
-                
-                custom_metadata.append(['-metadata:s:v', mdtitle])
+                sindex = str(mdata[0]).strip().lower()
+                mlang =  str(mdata[1]).lower()
+                mtilte = str(mdata[2])
+                custom_metadata.append([f'-metadata:s:{sindex}', f"language={mlang}", f'-metadata:s:{str(sindex)}', f"title={mtilte}"])
             except Exception as e:
                 await metadata_event.reply(f"❗Invalid Metadata, Error: {str(e)}")
                 return
