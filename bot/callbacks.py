@@ -12,6 +12,12 @@ from bot_helper.Telegram.Telegram_Client import Telegram
 #////////////////////////////////////Variables////////////////////////////////////#
 sudo_users = Config.SUDO_USERS
 encoders_list = ['libx265', 'libx264']
+
+vbit_list = ['8Bit', '10Bit']
+acodec_list = ['AAC', 'OPUS', 'DD', 'DDP']
+abit_list = ['64', '96', '128', '160', '192', '256', '320', '512', '576', '640', '768', '960']
+achannel_list = ['2', "6"]
+
 crf_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51']
 wsize_list =['12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
 presets_list =  ['ultrafast', 'superfast', 'veryfast', 'faster', 'fast', 'medium', 'slow', 'slower', 'veryslow']
@@ -661,6 +667,20 @@ async def convert_callback(event, txt, user_id, edit):
             elif txt.startswith("convertpreset"):
                 await saveconfig(user_id, 'convert', 'preset', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Preset - {str(new_position)}")
+
+            elif txt.startswith("convertvbit"):
+                await saveconfig(user_id, 'convert', 'vbit', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"✅Convert VideoBit - {str(new_position)}")
+            elif txt.startswith("convertachannel"):
+                await saveconfig(user_id, 'convert', 'achannel', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"✅Convert Audio Channel - {str(new_position)}")
+            elif txt.startswith("convertacodec"):
+                await saveconfig(user_id, 'convert', 'acodec', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"✅Convert Audio codec - {str(new_position)}")
+            elif txt.startswith("convertabit"):
+                await saveconfig(user_id, 'convert', 'abit', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"✅Convert AudioBit - {str(new_position)}")
+
             elif txt.startswith("convertcopysub"):
                 await saveconfig(user_id, 'convert', 'copy_sub', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Copy Subtitles - {str(new_position)}")
@@ -682,6 +702,12 @@ async def convert_callback(event, txt, user_id, edit):
             convert_encoder = get_data()[user_id]['convert']['encoder']
             convert_encode = get_data()[user_id]['convert']['encode']
             convert_preset = get_data()[user_id]['convert']['preset']
+
+            convert_vbit = get_data()[user_id]['convert']['vbit']
+            convert_abit = get_data()[user_id]['convert']['abit']
+            convert_acodec = get_data()[user_id]['convert']['acodec']
+            convert_achannel = get_data()[user_id]['convert']['achannel']
+
             convert_crf = get_data()[user_id]['convert']['crf']
             convert_map = get_data()[user_id]['convert']['map']
             convert_copysub = get_data()[user_id]['convert']['copy_sub']
@@ -695,6 +721,20 @@ async def convert_callback(event, txt, user_id, edit):
             KeyBoard.append([Button.inline(f'🍬Encoder - {str(convert_encoder)}', 'nik66bots')])
             for board in gen_keyboard(encoders_list, convert_encoder, "convertencoder", 2, False):
                 KeyBoard.append(board)
+            
+            KeyBoard.append([Button.inline(f'🍄VideoBit - {str(convert_vbit)}', 'nik66bots')])
+            for board in gen_keyboard(vbit_list, convert_vbit, "convertvbit", 2, False):
+                KeyBoard.append(board)
+            KeyBoard.append([Button.inline(f'🍄AudioCodec - {str(convert_acodec)}', 'nik66bots')])
+            for board in gen_keyboard(acodec_list, convert_acodec, "convertacodec", 2, False):
+                KeyBoard.append(board)
+            KeyBoard.append([Button.inline(f'🍄AudioBit - {str(convert_abit)}', 'nik66bots')])
+            for board in gen_keyboard(abit_list, convert_abit, "convertabit", 2, False):
+                KeyBoard.append(board)
+            KeyBoard.append([Button.inline(f'🍄AudioChannel - {str(convert_achannel)}', 'nik66bots')])
+            for board in gen_keyboard(achannel_list, convert_achannel, "convertachannel", 2, False):
+                KeyBoard.append(board)
+
             KeyBoard.append([Button.inline(f'🍄Copy Subtitles - {str(convert_copysub)}', 'nik66bots')])
             for board in gen_keyboard(bool_list, convert_copysub, "convertcopysub", 2, False):
                 KeyBoard.append(board)
