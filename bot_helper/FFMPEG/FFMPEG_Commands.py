@@ -83,9 +83,9 @@ def get_commands(process_status):
             command+= ["-c:s", "copy"]
         if get_data()[process_status.user_id]['watermark']['encode']:
                 if watermark_encoder=='libx265':
-                        command+= ['-vcodec','libx265','-vtag', 'hvc1']
+                        command+= ['-vcodec','libx265','-profile:v', 'main','-vtag', 'hvc1']
                 else:
-                        command+= ['-vcodec','libx264']
+                        command+= ['-vcodec','libx264','-profile:v', 'main','-vtag', 'avc1']
         else:
             command+= ['-codec:a','copy']
         watermark_use_queue_size = get_data()[process_status.user_id]['watermark']['use_queue_size']
@@ -250,9 +250,9 @@ def get_commands(process_status):
 
             if convert_encode:
                 if convert_encoder=='libx265':
-                        command+= ['-vcodec','libx265','-vtag', 'hvc1']
+                        command+= ['-vcodec','libx265','-profile:v', 'main','-vtag', 'hvc1']
                 else:
-                        command+= ['-vcodec','libx264']
+                        command+= ['-vcodec','libx264','-profile:v', 'main','-vtag', 'avc1']
             else:
                 command+= ["-c:a", "copy"]
             convert_use_queue_size = get_data()[process_status.user_id]['convert']['use_queue_size']
