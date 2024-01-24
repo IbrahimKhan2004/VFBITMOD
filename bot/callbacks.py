@@ -669,16 +669,16 @@ async def convert_callback(event, txt, user_id, edit):
                 await event.answer(f"✅Convert Preset - {str(new_position)}")
 
             elif txt.startswith("convertvbit"):
-                await saveconfig(user_id, 'convert', 'vbit', eval(new_position), SAVE_TO_DATABASE)
+                await saveconfig(user_id, 'convert', 'vbit', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert VideoBit - {str(new_position)}")
             elif txt.startswith("convertachannel"):
                 await saveconfig(user_id, 'convert', 'achannel', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Audio Channel - {str(new_position)}")
             elif txt.startswith("convertacodec"):
-                await saveconfig(user_id, 'convert', 'acodec', eval(new_position), SAVE_TO_DATABASE)
+                await saveconfig(user_id, 'convert', 'acodec', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Audio codec - {str(new_position)}")
             elif txt.startswith("convertabit"):
-                await saveconfig(user_id, 'convert', 'abit', eval(new_position), SAVE_TO_DATABASE)
+                await saveconfig(user_id, 'convert', 'abit', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert AudioBit - {str(new_position)}")
 
             elif txt.startswith("convertcopysub"):
