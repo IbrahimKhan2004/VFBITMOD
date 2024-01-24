@@ -235,9 +235,9 @@ def get_commands(process_status):
                 command+= ["-c:s", "copy"]
 
             if convert_vbit=='8Bit':
-                command+= ['-pix_fmt','yuv420p']
+                command+= ['-pix_fmt','yuv420p','-profile:v', 'high']
             else:
-                command+= ['-pix_fmt','yuv420p10le']
+                command+= ['-pix_fmt','yuv420p10le','-profile:v', 'high10']
 
             if convert_acodec=='OPUS':
                codec = 'libopus'
@@ -252,7 +252,7 @@ def get_commands(process_status):
                 if convert_encoder=='libx265':
                         command+= ['-vcodec','libx265','-vtag', 'hvc1']
                 else:
-                        command+= ['-vcodec','libx264','-profile:v', 'high10']
+                        command+= ['-vcodec','libx264']
             else:
                 command+= ["-c:a", "copy"]
             convert_use_queue_size = get_data()[process_status.user_id]['convert']['use_queue_size']
