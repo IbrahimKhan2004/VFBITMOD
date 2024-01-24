@@ -240,13 +240,13 @@ def get_commands(process_status):
                 command+= ['-px_fmt','yuv420p10le']
 
            if convert_acodec=="OPUS":
-            command+= ['-c:a','libopus']
+                command+= ['-c:a','libopus']
            elif convert_acodec=="DD":
-            command+= ['-c:a','ac3']
+                command+= ['-c:a','ac3']
            elif convert_acodec=="DDP":
-            command+= ['-c:a','eac3']
+                command+= ['-c:a','eac3']
            else:
-            command+= ['-c:a','aac'] 
+                command+= ['-c:a','aac'] 
 
             if convert_encode:
                 if convert_encoder=='libx265':
