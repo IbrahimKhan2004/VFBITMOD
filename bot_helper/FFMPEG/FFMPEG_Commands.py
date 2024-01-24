@@ -205,6 +205,12 @@ def get_commands(process_status):
     elif process_status.process_type==Names.convert:
             convert_preset =  get_data()[process_status.user_id]['convert']['preset']
             convert_crf = get_data()[process_status.user_id]['convert']['crf']
+
+            convert_vbit = get_data()[process_status.user_id]['convert']['vbit']
+            convert_abit = get_data()[process_status.user_id]['convert']['abit']
+            convert_acodec = get_data()[process_status.user_id]['convert']['acodec']
+            convert_achannel = get_data()[process_status.user_id]['convert']['achannel']
+        
             convert_map = get_data()[process_status.user_id]['convert']['map']
             convert_encoder = get_data()[process_status.user_id]['convert']['encoder']
             convert_copysub = get_data()[process_status.user_id]['convert']['copy_sub']
@@ -227,6 +233,12 @@ def get_commands(process_status):
                                             "-map", "0:s?"]
             if convert_copysub:
                 command+= ["-c:s", "copy"]
+
+            if convert_vbit=='8Bit':
+                command+= ['-px_fmt','yuv420p']
+            else:
+                command+= ['-px_fmt','yuv420p10le']
+                
             if convert_encode:
                 if convert_encoder=='libx265':
                         command+= ['-vcodec','libx265','-vtag', 'hvc1']
@@ -240,7 +252,7 @@ def get_commands(process_status):
                 command+= ['-max_muxing_queue_size', f'{str(convert_queue_size)}']
             if convert_sync:
                 command+= ['-vsync', '1', '-async', '-1']
-            command+= ['-preset', convert_preset, '-crf', f'{str(convert_crf)}', '-y', f"{output_file}"]
+            command+= ['-preset', convert_preset, '-crf', f'{str(convert_crf)}','-c:a', f'{str(convert_acodec)}','-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
             return command, log_file, input_file, output_file, file_duration
     
     
