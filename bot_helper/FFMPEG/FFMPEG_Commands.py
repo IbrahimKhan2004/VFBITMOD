@@ -239,11 +239,11 @@ def get_commands(process_status):
             else:
                 command+= ['-px_fmt','yuv420p10le']
 
-           if convert_acodec=="OPUS":
+           if convert_acodec=='OPUS':
                command += ['-c:a', 'libopus']
-           elif convert_acodec=="DD":
+           elif convert_acodec=='DD':
                command += ['-c:a', 'ac3']
-           elif convert_acodec=="DDP":
+           elif convert_acodec=='DDP':
                command += ['-c:a', 'eac3']
            else:
                command += ['-c:a', 'aac'] 
