@@ -1533,7 +1533,8 @@ async def _change_metadata(event):
             mdata = str(m).strip().split('-')
             LOGGER.info(mdata)
             try:
-                mdtitle = str(mdata)
+                mdtitle = custom_metadata = get_data()[user_id]['custom_metadata']
+                
                 custom_metadata.append(['-metadata:s:v', mdtitle])
             except Exception as e:
                 await metadata_event.reply(f"❗Invalid Metadata, Error: {str(e)}")
