@@ -235,9 +235,9 @@ def get_commands(process_status):
                 command+= ["-c:s", "copy"]
 
             if convert_vbit=='8Bit':
-                command+= ['-pix_fmt','yuv420p','-profile:v', 'high']
+                command+= ['-pix_fmt','yuv420p']
             else:
-                command+= ['-pix_fmt','yuv420p10le','-profile:v', 'high10']
+                command+= ['-pix_fmt','yuv420p10le']
 
             if convert_acodec=='OPUS':
                codec = 'libopus'
