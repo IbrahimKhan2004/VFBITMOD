@@ -246,7 +246,7 @@ def get_commands(process_status):
            elif convert_acodec=='DDP':
                command += ['-c:a', 'eac3']
            else:
-               command += ['-c:a', 'aac'] 
+               command += ['-c:a', 'aac']
 
             if convert_encode:
                 if convert_encoder=='libx265':
