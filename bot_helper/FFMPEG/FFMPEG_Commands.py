@@ -240,13 +240,13 @@ def get_commands(process_status):
                 command+= ['-px_fmt','yuv420p10le']
 
             if convert_acodec=='OPUS':
-               command += ['-c:a', 'libopus']
+               codec = 'libopus'
             elif convert_acodec=='DD':
-               command += ['-c:a', 'ac3']
+               codec = 'ac3'
             elif convert_acodec=='DDP':
-               command += ['-c:a', 'eac3']
+               codec = 'eac3'
             else:
-               command += ['-c:a', 'aac']
+               codec = 'aac'
 
             if convert_encode:
                 if convert_encoder=='libx265':
@@ -261,7 +261,7 @@ def get_commands(process_status):
                 command+= ['-max_muxing_queue_size', f'{str(convert_queue_size)}']
             if convert_sync:
                 command+= ['-vsync', '1', '-async', '-1']
-            command+= ['-preset', convert_preset, '-crf', f'{str(convert_crf)}','-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
+            command+= ['-preset', convert_preset, '-crf', f'{str(convert_crf)}','-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
             return command, log_file, input_file, output_file, file_duration
     
     
