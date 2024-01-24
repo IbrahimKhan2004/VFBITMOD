@@ -252,7 +252,7 @@ def get_commands(process_status):
                 if convert_encoder=='libx265':
                         command+= ['-vcodec','libx265','-profile:v', 'main','-vtag', 'hvc1']
                 else:
-                        command+= ['-vcodec','libx264','-profile:v', 'main','-vtag', 'avc1']
+                        command+= ['-vcodec','libx264','-profile:v', 'main']
             else:
                 command+= ["-c:a", "copy"]
             convert_use_queue_size = get_data()[process_status.user_id]['convert']['use_queue_size']
