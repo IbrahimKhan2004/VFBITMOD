@@ -84,6 +84,12 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['compress']['map'] = True
         DATA[user_id]['compress']['copy_sub'] = False
         DATA[user_id]['compress']['encoder'] = 'libx265'
+
+        DATA[user_id]['convert']['vbit'] = '8Bit'
+        DATA[user_id]['convert']['abit'] = '128k'
+        DATA[user_id]['convert']['achannel'] = '2'
+        DATA[user_id]['convert']['acodec'] = 'AAC'
+    
         DATA[user_id]['compression'] = False
         DATA[user_id]['select_stream'] = False
         DATA[user_id]['stream'] = 'ENG'
