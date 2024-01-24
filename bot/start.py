@@ -1536,7 +1536,7 @@ async def _change_metadata(event):
                 sindex = str(mdata[0]).strip().lower()
                 mlang =  str(mdata[1]).lower()
                 mtilte = str(mdata[2])
-                custom_metadata.append([f'-metadata:s:{sindex}', f"language={mlang}", f'-metadata:s:{str(sindex)}', f"title={mtilte}"])
+                custom_metadata.append([f'-metadata:s:v:{mtilte}', f'-metadata:s:a:{mtilte}', f'-metadata:s:s:{mtilte}', f'-metadata:{mtilte}'"])
             except Exception as e:
                 await metadata_event.reply(f"❗Invalid Metadata, Error: {str(e)}")
                 return
