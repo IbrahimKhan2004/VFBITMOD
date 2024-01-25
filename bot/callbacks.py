@@ -722,16 +722,16 @@ async def convert_callback(event, txt, user_id, edit):
             for board in gen_keyboard(encoders_list, convert_encoder, "convertencoder", 2, False):
                 KeyBoard.append(board)
             
-            KeyBoard.append([Button.inline(f'❤🖤 VideoBit - {str(convert_vbit)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ VideoBit 🖤 - {str(convert_vbit)}', 'L3G3N7')])
             for board in gen_keyboard(vbit_list, convert_vbit, "convertvbit", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤🖤 Audio Codec - {str(convert_acodec)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ Audio Codec 🖤 - {str(convert_acodec)}', 'L3G3N7')])
             for board in gen_keyboard(acodec_list, convert_acodec, "convertacodec", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤🖤 AudioBit - {str(convert_abit)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ AudioBit 🖤 - {str(convert_abit)}', 'L3G3N7')])
             for board in gen_keyboard(abit_list, convert_abit, "convertabit", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤🖤 Audio Channel - {str(convert_achannel)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ Audio Channel 🖤 - {str(convert_achannel)}', 'L3G3N7')])
             for board in gen_keyboard(achannel_list, convert_achannel, "convertachannel", 2, False):
                 KeyBoard.append(board)
 
