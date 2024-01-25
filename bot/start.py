@@ -1524,7 +1524,7 @@ async def _change_metadata(event):
                 link = await get_url_from_message(new_event)
             else:
                 return
-        metadata_event = await ask_text_event(chat_id, user_id, event, 120, "Metadata Change", message_hint="Your Metadata Will Be Fetch From General Settings.\n\nTo Change Metadata Title Proceed To /settings - General Settings - Custom Metadata\nType `process` To Continue The Process\nType `cancel` To Cancel The Process")
+        metadata_event = await ask_text_event(chat_id, user_id, event, 120, "❤ Metadata Change 🖤", message_hint="Your Metadata Will Be Fetch From General Settings.\n\nTo Change Metadata Title Proceed To : \n/settings - General Settings - Custom Metadata\nType Anything To Continue The Process.")
         if not metadata_event:
             return
         custom_metadata_list = str(metadata_event.message.message).split('\n')
@@ -1572,7 +1572,7 @@ async def _change_index(event):
                 link = await get_url_from_message(new_event)
             else:
                 return
-        index_event = await ask_text_event(chat_id, user_id, event, 120, "Send index", message_hint="Your Metadata Will Be Fetch From General Settings.\n\nTo Change Metadata Title Proceed To /settings - General Settings - Custom Metadata\nType `process` To Continue The Process\nType `cancel` To Cancel The Process")
+        index_event = await ask_text_event(chat_id, user_id, event, 120, "Send index", message_hint="🔷`a` Is For Audio & `s` Is For Subtitle\n🔷 Send In The Format As Shown Below:\n\n`a-3-1-2` (To Change Audio Index In 3rd, 1st and 2nd order)\n`s-2-1` (To Change Subtitle Index In 2nd and 1st order)")
         if not index_event:
             return
         custom_index_list = str(index_event.message.message).split('\n')
@@ -1589,7 +1589,7 @@ async def _change_index(event):
                     custom_index.append(f"0:{stream}:{s}")
                 custom_index+= [f"-disposition:{stream}:0", "default"]
             except Exception as e:
-                await index_event.reply(f" ❌ Metadata Process Cancelled .!")
+                await index_event.reply(f"❗Invalid index, Error: {str(e)}")
                 return
         user_name = get_username(event)
         user_first_name = event.message.sender.first_name
