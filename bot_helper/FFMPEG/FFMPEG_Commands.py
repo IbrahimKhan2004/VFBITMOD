@@ -108,6 +108,9 @@ def get_commands(process_status):
                 infile_names += f"file '{str(dwfile_loc)}'\n"
                 file_duration += get_video_duration(dwfile_loc)
             input_file = f"{process_status.dir}/merge/merge_files.txt"
+
+            custom_metadata_title = get_data()[process_status.user_id]['metadata']
+            
             with open(input_file, "w", encoding="utf-8") as f:
                         f.write(str(infile_names).strip('\n'))
             output_file = f"{process_status.dir}/merge/{get_output_name(process_status)}"
@@ -117,7 +120,7 @@ def get_commands(process_status):
                                         "-safe", "0"]
             if merge_fix_blank:
                 command += ['-segment_time_metadata', '1']
-            command+=["-i", f'{str(input_file)}', '-metadata', 'title=Nik66Bots', '-metadata:s:v', 'channel=Nik66Bots', '-metadata:s:a', 'title=Nik66Bots', '-metadata:s:s', 'title=Nik66Bots']
+            command+=["-i", f'{str(input_file)}', '-metadata', f"title={custom_metadata_title}", '-metadata:s:v', f"title={custom_metadata_title}", '-metadata:s:a', f"title={custom_metadata_title}", '-metadata:s:s', f"title={custom_metadata_title}"]
         
             if merge_fix_blank:
                 command += ['-vf', 'select=concatdec_select', '-af', 'aselect=concatdec_select,aresample=async=1']
