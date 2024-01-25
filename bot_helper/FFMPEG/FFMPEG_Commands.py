@@ -117,11 +117,8 @@ def get_commands(process_status):
                                         "-safe", "0"]
             if merge_fix_blank:
                 command += ['-segment_time_metadata', '1']
-            command+=["-i", f'{str(input_file)}', 
-                    '-metadata', 'title=Nik66Bots',
-                    '-metadata:s:v', 'channel=Nik66Bots',
-                    '-metadata:s:a', 'title=Nik66Bots',
-                    '-metadata:s:s', 'title=Nik66Bots']
+            command+=["-i", f'{str(input_file)}', '-metadata', 'title=Nik66Bots', '-metadata:s:v', 'channel=Nik66Bots', '-metadata:s:a', 'title=Nik66Bots', '-metadata:s:s', 'title=Nik66Bots']
+        
             if merge_fix_blank:
                 command += ['-vf', 'select=concatdec_select', '-af', 'aselect=concatdec_select,aresample=async=1']
             if merge_map:
