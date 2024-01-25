@@ -121,7 +121,7 @@ def get_commands(process_status):
                     '-metadata', 'title=Nik66Bots',
                     '-metadata:s:v', 'channel=Nik66Bots',
                     '-metadata:s:a', 'title=Nik66Bots',
-                    '-metadata:s:s', 'title=Nik66Bots',]
+                    '-metadata:s:s', 'title=Nik66Bots']
             if merge_fix_blank:
                 command += ['-vf', 'select=concatdec_select', '-af', 'aselect=concatdec_select,aresample=async=1']
             if merge_map:
