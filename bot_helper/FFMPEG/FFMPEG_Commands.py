@@ -136,8 +136,8 @@ def get_commands(process_status):
             subprocess.run(meta_command, check=True)
 
             custom_metadata_title = get_data()[process_status.user_id]['metadata']
-            meta_command = ["zender", "-i", f'{str(output_mfile)}', "-metadata:s:v", f"title={custom_metadata_title}", "-metadata", f"title={custom_metadata_title}", "-metadata:s:v", f"channel={custom_metadata_title}", "-metadata:s:a", f"title={custom_metadata_title}", "-metadata:s:s", f"title={custom_metadata_title}", "-map", "0", "-c", "copy", '-y', f'{str(output_file)}']
-            subprocess.run(meta_command, check=True)
+            metam_command = ["zender", "-i", f'{str(output_mfile)}', "-metadata:s:v", f"title={custom_metadata_title}", "-metadata", f"title={custom_metadata_title}", "-metadata:s:v", f"channel={custom_metadata_title}", "-metadata:s:a", f"title={custom_metadata_title}", "-metadata:s:s", f"title={custom_metadata_title}", "-map", "0", "-c", "copy", '-y', f'{str(output_file)}']
+            subprocess.run(metam_command, check=True)
         
             return command, log_file, input_file, output_file, file_duration
 
