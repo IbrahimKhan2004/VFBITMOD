@@ -180,7 +180,7 @@ async def callback(event):
         
         elif txt=="custom_metedata":
             cmetadata = get_data()[user_id]['metadata']
-            await event.answer(f"❤🖤 Current Metadata: {str(cmetadata)}", alert=True)
+            await event.answer(f"❤ Current Metadata 🖤: {str(cmetadata)}", alert=True)
             return
         
         
