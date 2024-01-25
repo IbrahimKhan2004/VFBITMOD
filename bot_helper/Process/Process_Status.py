@@ -165,7 +165,9 @@ def generate_ffmpeg_status_head(user_id, pmode, input_size):
                 text = f"\n**SYNC**: {get_data()[user_id]['convert']['sync']} | **Preset**: {get_data()[user_id]['convert']['preset']}\n"\
                         f"**CRF**: {get_data()[user_id]['convert']['crf']} | **Copy Subtitles**: {get_data()[user_id]['convert']['copy_sub']}\n"\
                         f"{qsize_text} | **MAP**: {get_data()[user_id]['convert']['map']}\n"\
-                        f"**Encoder**: {encoder} | **In.Size**: {get_human_size(input_size)}"
+                        f"**Encoder**: {encoder} | **In.Size**: {get_human_size(input_size)}\n"\
+                        f"**VideoBit**: {get_data()[user_id]['convert']['vbit']} | **AudioBit**: {get_data()[user_id]['convert']['abit']}\n"\
+                        f"**Audio Codec**: {get_data()[user_id]['convert']['acodec']} | **Audio Channel**: {get_data()[user_id]['convert']['achannel']}"
                 return text
         elif pmode==Names.hardmux:
                 if get_data()[user_id]['hardmux']['use_queue_size']:
