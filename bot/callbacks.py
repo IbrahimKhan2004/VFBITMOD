@@ -48,7 +48,7 @@ async def callback(event):
             [Button.inline('🏮 Compression', 'compression_settings')],
             [Button.inline('🛺 Watermark', 'watermark_settings')],
             [Button.inline('🍧 Merge', 'merge_settings')],
-            [Button.inline('🚜 Convert', 'convert_settings')],
+            [Button.inline('❤🖤 Convert', 'convert_settings')],
             [Button.inline('🚍 HardMux', 'hardmux_settings')],
             [Button.inline('🎮 SoftMux', 'softmux_settings')],
             [Button.inline('🛩SoftReMux', 'softremux_settings')],
@@ -150,7 +150,7 @@ async def callback(event):
         
         
         elif txt=="nik66bots":
-            await event.answer(f"⚡Bot By Sahil⚡", alert=True)
+            await event.answer(f"⚡Bot By Sahil⚡\n❤ Modified By L3G3N7 🖤", alert=True)
             return
         
         
@@ -180,7 +180,7 @@ async def callback(event):
         
         elif txt=="custom_metedata":
             cmetadata = get_data()[user_id]['metadata']
-            await event.answer(f"✅Current Metadata: {str(cmetadata)}", alert=True)
+            await event.answer(f"❤🖤 Current Metadata: {str(cmetadata)}", alert=True)
             return
         
         
