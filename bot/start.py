@@ -1524,7 +1524,7 @@ async def _change_metadata(event):
                 link = await get_url_from_message(new_event)
             else:
                 return
-        metadata_event = await ask_text_event(chat_id, user_id, event, 120, "Send MetaData", message_hint="🔷`a` Is For Audio & `s` Is For Subtitle\n🔷 Send In The Format As Shown Below:\n\n`a:0-AudioLanguage-AudioTitle` (To Change Audio Number 1 Metadata)\n`s:0-SubLanguage-SubTitle` (To Change Subtitle Number 1 Metadata)\n\ne.g. `a:1-eng-nik66bots` (To Change Audio Number 2 Metadata)")
+        metadata_event = await ask_text_event(chat_id, user_id, event, 120, "Metadata Change", message_hint="Your Metadata Will Be Fetch From General Settings.\n\nTo Change Metadata Title Proceed To /settings - General Settings - Custom Metadata\nType `process` To Continue The Process\nType `cancel` To Cancel The Process")
         if not metadata_event:
             return
         custom_metadata_list = str(metadata_event.message.message).split('\n')
@@ -1533,12 +1533,10 @@ async def _change_metadata(event):
             mdata = str(m).strip().split('-')
             LOGGER.info(mdata)
             try:
-                sindex = str(mdata[0]).strip().lower()
-                mlang =  str(mdata[1]).lower()
-                mtilte = str(mdata[2])
-                custom_metadata.append([f'-metadata:s:{sindex}', f"language={mlang}", f'-metadata:s:{str(sindex)}', f"title={mtilte}"])
+                mtilte = str(mdata)
+                custom_metadata.append([])
             except Exception as e:
-                await metadata_event.reply(f"❗Invalid Metadata, Error: {str(e)}")
+                await metadata_event.reply(f"❌ Metadata Process Cancelled .!")
                 return
         user_name = get_username(event)
         user_first_name = event.message.sender.first_name
