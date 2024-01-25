@@ -150,7 +150,8 @@ def generate_ffmpeg_status_head(user_id, pmode, input_size):
                         f"**Encoder**: {encoder} | **In.Size**: {get_human_size(input_size)}"
                 return text
         elif pmode==Names.merge:
-                text = f"\n**MAP**: {get_data()[user_id]['merge']['map']} | **Fix Blank**: {get_data()[user_id]['merge']['fix_blank']}"
+                text = f"\n**MAP**: {get_data()[user_id]['merge']['map']} | **Fix Blank**: {get_data()[user_id]['merge']['fix_blank']}\n"\
+                       f"**Metadata**: {get_data()[user_id]['metadata']}"
                 return text
         elif pmode==Names.convert:
                 if get_data()[user_id]['convert']['use_queue_size']:
