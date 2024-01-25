@@ -310,7 +310,7 @@ async def general_callback(event, txt, user_id, chat_id):
                         else:
                             return
                 await saveoptions(user_id, 'custom_metadata', eval(new_position), SAVE_TO_DATABASE)
-                await event.answer(f"✅Custom Metadata - {str(new_position)}")
+                await event.answer(f"❤ Custom Metadata 🖤 - {str(new_position)}")
             elif txt.startswith("generaluploadtg"):
                 if not eval(new_position):
                     if not (check_config and drive_name):
