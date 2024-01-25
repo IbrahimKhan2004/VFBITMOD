@@ -1533,9 +1533,9 @@ async def _change_metadata(event):
             mdata = str(m).strip().split('-')
             LOGGER.info(mdata)
             try:
-                mntitle = str(mdata[0]).strip().lower()
-                vtitle = str(mdata[1]).lower()
-                atitle =  str(mdata[2]).lower()
+                mntitle = str(mdata[0])
+                vtitle = str(mdata[1])
+                atitle =  str(mdata[2])
                 stitle = str(mdata[3])
                 custom_metadata.append(['-metadata', f"title={mntitle}", '-metadata:s:v', f"title={vtitle}", '-metadata:s:a', f"title={atitle}", '-metadata:s:s', f"title={stitle}"])
             except Exception as e:
