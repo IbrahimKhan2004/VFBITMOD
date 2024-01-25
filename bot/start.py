@@ -1524,7 +1524,7 @@ async def _change_metadata(event):
                 link = await get_url_from_message(new_event)
             else:
                 return
-        metadata_event = await ask_text_event(chat_id, user_id, event, 120, "❤ Metadata Change 🖤", message_hint="**Send Message Like This:**\ntitle-title-title-title\n\n❤ **1st 'title'** will change Movie Name.\n🖤 **2nd 'title'** will change Title of all Video Streams.\n❤ **3rd 'title'** will change Title of all Audio Streams.\n🖤 **4th 'title'** will change Title of all Subtitiles Streams.\n\n**Note :**\nYou have to send all title.\n\n**Example Message :**\n`Movie Name-Video Title-Audio Title-Subtitle Title`")
+        metadata_event = await ask_text_event(chat_id, user_id, event, 120, "❤ Metadata Change 🖤", message_hint="**Send Message Like This:**\ntitle-title-title-title\n\n❤ **1st 'title'** will change Movie Name.\n🖤 **2nd 'title'** will change Title of all Video Streams.\n❤ **3rd 'title'** will change Title of all Audio Streams.\n🖤 **4th 'title'** will change Title of all Subtitiles Streams.\n\n**Note:** You have to send all title.\n\n**Example Message :**\n`Movie Name-Video Title-Audio Title-Subtitle Title`")
         if not metadata_event:
             return
         custom_metadata_list = str(metadata_event.message.message).split('\n')
