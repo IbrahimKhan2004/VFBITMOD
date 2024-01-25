@@ -309,9 +309,10 @@ def get_commands(process_status):
         output_file = f"{process_status.dir}/metadata/{get_output_name(process_status)}"
         file_duration = get_video_duration(input_file)
         custom_metadata = process_status.custom_metadata
+        custom_metadata_title = get_data()[process_status.user_id]['metadata']
         command = ['zender','-hide_banner', '-progress', f"{log_file}", '-i', f'{str(input_file)}']
         for m in custom_metadata:
-            command+=m
+            command+=['-metadata', f"title={custom_metadata_title}", '-metadata:s:v', f"title={custom_metadata_title}", '-metadata:s:a', f"title={custom_metadata_title}", '-metadata:s:s', f"title={custom_metadata_title}"]
         command += ["-map", "0", "-c", "copy", '-y', f"{output_file}"]
         return command, log_file, input_file, output_file, file_duration
     
