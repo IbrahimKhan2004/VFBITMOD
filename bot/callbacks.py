@@ -672,7 +672,7 @@ async def convert_callback(event, txt, user_id, edit):
                 await saveconfig(user_id, 'convert', 'vbit', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert VideoBit - {str(new_position)}")
             elif txt.startswith("convertachannel"):
-                await saveconfig(user_id, 'convert', 'achannel', eval(new_position), SAVE_TO_DATABASE)
+                await saveconfig(user_id, 'convert', 'achannel', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Audio Channel - {str(new_position)}")
             elif txt.startswith("convertacodec"):
                 await saveconfig(user_id, 'convert', 'acodec', new_position, SAVE_TO_DATABASE)
