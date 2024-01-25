@@ -113,32 +113,21 @@ def get_commands(process_status):
             input_file = f"{process_status.dir}/merge/merge_files.txt"
             with open(input_file, "w", encoding="utf-8") as f:
                         f.write(str(infile_names).strip('\n'))
-                
-            output_mfile = f"{process_status.dir}/merge/{get_output_name(process_status)}"
-            output_file = f"{process_status.dir}/mergemeta/{get_output_name(process_status)}"
-            command = ['zender']
-        
-            meta_command = ['zender','-hide_banner',
+            output_file = f"{process_status.dir}/merge/{get_output_name(process_status)}"
+            command = ['zender','-hide_banner',
                                     '-progress', f"{log_file}",
                                         "-f", "concat",
                                         "-safe", "0"]
             if merge_fix_blank:
-                meta_command += ['-segment_time_metadata', '1']
+                command += ['-segment_time_metadata', '1']
             command+=["-i", f'{str(input_file)}']
             if merge_fix_blank:
-                meta_command += ['-vf', 'select=concatdec_select', '-af', 'aselect=concatdec_select,aresample=async=1']
+                command += ['-vf', 'select=concatdec_select', '-af', 'aselect=concatdec_select,aresample=async=1']
             if merge_map:
-                meta_command+=['-map','0']
+                command+=['-map','0']
             if not merge_fix_blank:
-                meta_command+= ["-c", "copy"]
-            command+= ['-y', f'{str(output_mfile)}']
-
-            subprocess.run(meta_command, check=True)
-
-            custom_metadata_title = get_data()[process_status.user_id]['metadata']
-            metam_command = ["zender", "-i", f'{str(output_mfile)}', "-metadata:s:v", f"title={custom_metadata_title}", "-metadata", f"title={custom_metadata_title}", "-metadata:s:v", f"channel={custom_metadata_title}", "-metadata:s:a", f"title={custom_metadata_title}", "-metadata:s:s", f"title={custom_metadata_title}", "-map", "0", "-c", "copy", '-y', f'{str(output_file)}']
-            subprocess.run(metam_command, check=True)
-        
+                command+= ["-c", "copy"]
+            command+= ['-y', f'{str(output_file)}']
             return command, log_file, input_file, output_file, file_duration
 
     elif process_status.process_type==Names.softmux:
