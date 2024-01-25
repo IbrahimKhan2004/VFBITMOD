@@ -116,6 +116,7 @@ def get_commands(process_status):
                 
             output_mfile = f"{process_status.dir}/merge/{get_output_name(process_status)}"
             output_file = f"{process_status.dir}/mergemeta/{get_output_name(process_status)}"
+            command = ['zender']
         
             meta_command = ['zender','-hide_banner',
                                     '-progress', f"{log_file}",
