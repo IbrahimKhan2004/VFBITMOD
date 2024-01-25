@@ -92,7 +92,11 @@ class Config:
     FINISHED_PROGRESS_STR = environ.get("FINISHED_PROGRESS_STR", '■')
     UNFINISHED_PROGRESS_STR = environ.get("UNFINISHED_PROGRESS_STR", '□')
     TIMEZONE = environ.get("TIMEZONE", 'Asia/Kolkata')
-    AUTH_GROUP_ID = -1002023872315
+    try:
+        AUTH_GROUP_ID = int(environ.get("AUTH_GROUP_ID",""))
+    except:
+        LOGGER.info("🔶Auth Group ID Not Found, Pyrogram Download and Upload Will Not Work In Group")
+        AUTH_GROUP_ID = False
     NAME = "Nik66Bots"
     DOWNLOAD_DIR = f"{getcwd()}/downloads"
     OWNER_ID = int(environ.get("OWNER_ID",""))
