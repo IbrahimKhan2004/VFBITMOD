@@ -1533,8 +1533,11 @@ async def _change_metadata(event):
             mdata = str(m).strip().split('-')
             LOGGER.info(mdata)
             try:
-                mtilte = str(mdata)
-                custom_metadata.append([])
+                mntitle = str(mdata[0]).strip().lower()
+                vtitle = str(mdata[1]).lower()
+                atitle =  str(mdata[2]).lower()
+                stitle = str(mdata[3])
+                custom_metadata.append(['-metadata', f"title={mntitle}", '-metadata:s:v', f"title={vtitle}", '-metadata:s:a', f"title={atitle}", '-metadata:s:s', f"title={stitle}"])
             except Exception as e:
                 await metadata_event.reply(f"❌ Metadata Process Cancelled .!")
                 return
