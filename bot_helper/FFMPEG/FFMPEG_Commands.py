@@ -114,7 +114,8 @@ def get_commands(process_status):
             command = ['zender','-hide_banner',
                                     '-progress', f"{log_file}",
                                         "-f", "concat",
-                                        "-safe", "0"]
+                                        "-safe", "0", '-metadata:s:v', 'title=Nik66Bots', '-metadata', 'title=Nik66Bots', '-metadata:s:v', 'channel=Nik66Bots',
+           '-metadata:s:a', 'title=Nik66Bots', '-metadata:s:s', 'title=Nik66Bots',]
             if merge_fix_blank:
                 command += ['-segment_time_metadata', '1']
             command+=["-i", f'{str(input_file)}']
