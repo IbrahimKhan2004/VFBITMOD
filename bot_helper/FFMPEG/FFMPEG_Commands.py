@@ -132,7 +132,7 @@ def get_commands(process_status):
                 command+= ["-c", "copy"]
             command+= ['-y', f'{str(output_mfile)}']
 
-           subprocess.run(command, check=True)
+            subprocess.run(command, check=True)
 
             custom_metadata_title = get_data()[process_status.user_id]['metadata']
             meta_command = ["zender", "-i", f'{str(output_mfile)}', "-metadata:s:v", f"title={custom_metadata_title}", "-metadata", f"title={custom_metadata_title}", "-metadata:s:v", f"channel={custom_metadata_title}", "-metadata:s:a", f"title={custom_metadata_title}", "-metadata:s:s", f"title={custom_metadata_title}", "-map", "0", "-c", "copy", '-y', f'{str(output_file)}']
