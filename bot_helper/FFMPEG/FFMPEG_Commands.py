@@ -14,7 +14,7 @@ def is_video_file(file_path):
     return any(file_path.lower().endswith(ext) for ext in video_extensions)
 
 def is_audio_file(file_path):
-    audio_extensions = ['.aac', '.eac3', '.ac3', '.mp3']  # Add more audio extensions if needed
+    audio_extensions = ['.aac', '.eac3', '.ac3', '.m4a']  # Add more audio extensions if needed
     return any(file_path.lower().endswith(ext) for ext in audio_extensions)
     
 def get_output_name(process_status, convert_quality=False):
