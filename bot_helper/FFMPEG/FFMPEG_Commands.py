@@ -8,15 +8,8 @@ def create_direc(direc):
     if not isdir(direc):
         makedirs(direc)
     return
-
-def is_video_file(file_path):
-    video_extensions = ['.mp4', '.avi', '.mkv', '.mov']  # Add more video extensions if needed
-    return any(file_path.lower().endswith(ext) for ext in video_extensions)
-
-def is_audio_file(file_path):
-    audio_extensions = ['.aac', '.eac3', '.ac3', '.m4a']  # Add more audio extensions if needed
-    return any(file_path.lower().endswith(ext) for ext in audio_extensions)
     
+
 def get_output_name(process_status, convert_quality=False):
     if process_status.file_name:
             out_file_name = process_status.file_name
@@ -103,59 +96,40 @@ def get_commands(process_status):
                 command+= ['-vsync', '1', '-async', '-1']
         command+= ['-preset', watermark_preset, '-crf', f'{str(watermark_crf)}', '-y', f'{str(output_file)}']
         return command, log_file, input_file, output_file, file_duration
-
-    elif process_status.process_type == Names.merge:
-        merge_map = get_data()[process_status.user_id]['merge']['map']
-        merge_fix_blank = get_data()[process_status.user_id]['merge']['fix_blank']
-        create_direc(f"{process_status.dir}/merge/")
-        log_file = f"{process_status.dir}/merge/merge_logs_{process_status.process_id}.txt"
-        input_file = f"{process_status.dir}/merge/merge_files.txt"
     
-        infile_names = ""
-        video_file = None
-        audio_files = []
+    elif process_status.process_type==Names.merge:
+            merge_map = get_data()[process_status.user_id]['merge']['map']
+            merge_fix_blank = get_data()[process_status.user_id]['merge']['fix_blank']
+            create_direc(f"{process_status.dir}/merge/")
+            log_file = f"{process_status.dir}/merge/merge_logs_{process_status.process_id}.txt"
+            infile_names = ""
+            file_duration =0
+            for dwfile_loc in process_status.send_files:
+                infile_names += f"file '{str(dwfile_loc)}'\n"
+                file_duration += get_video_duration(dwfile_loc)
+            input_file = f"{process_status.dir}/merge/merge_files.txt"
 
-        for dwfile_loc in process_status.send_files:
-            if is_video_file(dwfile_loc):
-                video_file = dwfile_loc
-            elif is_audio_file(dwfile_loc):
-                audio_files.append(dwfile_loc)
-
-        if video_file is None:
-            raise ValueError("No video file found in the input files.")
-
-        with open(f"{process_status.dir}/merge/merge_files.txt", "w", encoding="utf-8") as f:
-            f.write(f"file '{video_file}'\n")
-            for audio_file in audio_files:
-                f.write(f"file '{audio_file}'\n")
-
-        file_duration = get_video_duration(video_file)
-
-        custom_metadata_title = get_data()[process_status.user_id]['metadata']
-
-        output_file = 'hogya.mkv'
-        command = ['zender', '-hide_banner', '-progress', f"{log_file}", "-f", "concat", "-safe", "0"]
-
-        if merge_fix_blank:
-            command += ['-segment_time_metadata', '1']
-
-        command += ["-i", f'{process_status.dir}/merge/merge_files.txt',
-                    '-metadata', f"title={custom_metadata_title}",
-                    '-metadata:s:v', f"title={custom_metadata_title}",
-                    '-metadata:s:a', f"title={custom_metadata_title}",
-                    '-metadata:s:s', f"title={custom_metadata_title}"]
-
-        if merge_fix_blank:
-            command += ['-vf', 'select=concatdec_select', '-af', 'aselect=concatdec_select,aresample=async=1']
-
-        if merge_map:
-            command += ['-map', '0']
-
-        if not merge_fix_blank:
-                command += ["-c", "copy"]
-
-        command += ['-y', f'{str(output_file)}']
-        return command, log_file, input_file, output_file, file_duration
+            custom_metadata_title = get_data()[process_status.user_id]['metadata']
+            
+            with open(input_file, "w", encoding="utf-8") as f:
+                        f.write(str(infile_names).strip('\n'))
+            output_file = f"{process_status.dir}/merge/{get_output_name(process_status)}"
+            command = ['zender','-hide_banner',
+                                    '-progress', f"{log_file}",
+                                        "-f", "concat",
+                                        "-safe", "0"]
+            if merge_fix_blank:
+                command += ['-segment_time_metadata', '1']
+            command+=["-i", f'{str(input_file)}', '-metadata', f"title={custom_metadata_title}", '-metadata:s:v', f"title={custom_metadata_title}", '-metadata:s:a', f"title={custom_metadata_title}", '-metadata:s:s', f"title={custom_metadata_title}"]
+        
+            if merge_fix_blank:
+                command += ['-vf', 'select=concatdec_select', '-af', 'aselect=concatdec_select,aresample=async=1']
+            if merge_map:
+                command+=['-map','0']
+            if not merge_fix_blank:
+                command+= ["-c", "copy"]
+            command+= ['-y', f'{str(output_file)}']
+            return command, log_file, input_file, output_file, file_duration
 
     elif process_status.process_type==Names.softmux:
         softmux_preset =  get_data()[process_status.user_id]['softmux']['preset']
