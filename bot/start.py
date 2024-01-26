@@ -332,9 +332,6 @@ async def ask_media_OR_url(event, chat_id, user_id, keywords, message, timeout, 
                 return False
             if new_event.message.file:
                 if mtype:
-                    if not str(new_event.message.file.mime_type).startswith(mtype):
-                        await new_event.reply(f'❗[{str(new_event.message.file.mime_type)}] This is not a valid file.')
-                        return False
                 return new_event
             elif new_event.message.message:
                 if str(new_event.message.message)=='stop':
