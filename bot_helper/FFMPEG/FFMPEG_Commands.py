@@ -113,7 +113,7 @@ def get_commands(process_status):
             
             with open(input_file, "w", encoding="utf-8") as f:
                         f.write(str(infile_names).strip('\n'))
-            output_file = f"{process_status.dir}/merge/{get_output_name(process_status)}"
+            output_file = f"{process_status.dir}/merge/merge_files.txt"
             command = ['zender','-hide_banner',
                                     '-progress', f"{log_file}",
                                         "-f", "concat",
@@ -128,7 +128,7 @@ def get_commands(process_status):
                 command+=['-map','0']
             if not merge_fix_blank:
                 command+= ["-c", "copy"]
-            command+= ['-y', f'{str(output_file)}']
+            command+= ['-y', 'hello,mkv']
             return command, log_file, input_file, output_file, file_duration
 
     elif process_status.process_type==Names.softmux:
