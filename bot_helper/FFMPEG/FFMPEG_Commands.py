@@ -130,7 +130,6 @@ def get_commands(process_status):
                 f.write(f"file '{audio_file}'\n")
 
         file_duration = get_video_duration(video_file)
-        file_duration += sum(get_audio_duration(audio_file) for audio_file in audio_files)
 
         custom_metadata_title = get_data()[process_status.user_id]['metadata']
 
