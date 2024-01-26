@@ -134,7 +134,7 @@ def get_commands(process_status):
 
         custom_metadata_title = get_data()[process_status.user_id]['metadata']
 
-        output_file = f"{process_status.dir}/merge/{get_output_name(process_status)}"
+        output_file = hogya.mkv
         command = ['zender', '-hide_banner', '-progress', f"{log_file}", "-f", "concat", "-safe", "0"]
 
         if merge_fix_blank:
