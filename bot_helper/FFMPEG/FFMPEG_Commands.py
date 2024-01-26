@@ -108,13 +108,27 @@ def get_commands(process_status):
                 infile_names += f"file '{str(dwfile_loc)}'\n"
                 file_duration += get_video_duration(dwfile_loc)
             input_file = f"{process_status.dir}/merge/merge_files.txt"
+
             custom_metadata_title = get_data()[process_status.user_id]['metadata']
             
             with open(input_file, "w", encoding="utf-8") as f:
                         f.write(str(infile_names).strip('\n'))
-            output_file = input_file
-            command = ['zender']
+            output_file = f"{process_status.dir}/merge/{get_output_name(process_status)}"
+            command = ['zender','-hide_banner',
+                                    '-progress', f"{log_file}",
+                                        "-f", "concat",
+                                        "-safe", "0"]
+            if merge_fix_blank:
+                command += ['-segment_time_metadata', '1']
+            command+=["-i", f'{str(input_file)}', '-metadata', f"title={custom_metadata_title}", '-metadata:s:v', f"title={custom_metadata_title}", '-metadata:s:a', f"title={custom_metadata_title}", '-metadata:s:s', f"title={custom_metadata_title}"]
         
+            if merge_fix_blank:
+                command += ['-vf', 'select=concatdec_select', '-af', 'aselect=concatdec_select,aresample=async=1']
+            if merge_map:
+                command+=['-map','0']
+            if not merge_fix_blank:
+                command+= ["-c", "copy"]
+            command+= ['-y', f'{str(output_file)}']
             return command, log_file, input_file, output_file, file_duration
 
     elif process_status.process_type==Names.softmux:
