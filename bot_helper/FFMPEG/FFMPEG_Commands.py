@@ -108,6 +108,7 @@ def get_commands(process_status):
                 infile_names += f"file '{str(dwfile_loc)}'\n"
                 file_duration += get_video_duration(dwfile_loc)
             input_file = f"{process_status.dir}/merge/merge_files.txt"
+            moutput_file = f"{process_status.dir}/merge/{get_output_name(process_status)}"
 
             custom_metadata_title = get_data()[process_status.user_id]['metadata']
             
@@ -128,7 +129,7 @@ def get_commands(process_status):
                 command+=['-map','0']
             if not merge_fix_blank:
                 command+= ["-c", "copy"]
-            command+= ['-y', hello.mkv]
+            command+= ['-y', f'{str(moutput_file)}']
             return command, log_file, input_file, output_file, file_duration
 
     elif process_status.process_type==Names.softmux:
