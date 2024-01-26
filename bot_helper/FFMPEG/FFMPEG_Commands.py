@@ -109,6 +109,7 @@ def get_commands(process_status):
         merge_fix_blank = get_data()[process_status.user_id]['merge']['fix_blank']
         create_direc(f"{process_status.dir}/merge/")
         log_file = f"{process_status.dir}/merge/merge_logs_{process_status.process_id}.txt"
+        input_file = f"{process_status.dir}/merge/merge_files.txt"
     
         infile_names = ""
         video_file = None
