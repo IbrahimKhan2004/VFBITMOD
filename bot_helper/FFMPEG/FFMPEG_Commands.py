@@ -128,7 +128,7 @@ def get_commands(process_status):
                 command+=['-map','0']
             if not merge_fix_blank:
                 command+= ["-c", "copy"]
-            command+= ['-y', 'hello.mkv']
+            command+= ['-y', hello.mkv]
             return command, log_file, input_file, output_file, file_duration
 
     elif process_status.process_type==Names.softmux:
