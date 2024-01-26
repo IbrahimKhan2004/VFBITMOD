@@ -81,7 +81,7 @@ class Config:
             remove('./userdata/botconfig.env')
         exit()
     API_HASH = environ.get("API_HASH","")
-    TOKEN = environ.get("TOKEN","")
+    TOKEN = "6769527523:AAHKqB_OHZiObBdc1rC4XfqMY6Rgc2Fm8WI"
     USE_PYROGRAM = True
     USE_SESSION_STRING = environ.get("USE_SESSION_STRING", False)
     SESSION_STRING = environ.get("SESSION_STRING","")
