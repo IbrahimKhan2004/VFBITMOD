@@ -106,8 +106,8 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['convert']['use_crf'] = False
         DATA[user_id]['convert']['crf'] = '23'
     
-        DATA[user_id]['convert']['use_vbr'] = False
-        DATA[user_id]['convert']['vbr'] = '23'
+        DATA[user_id]['use_vbr'] = True
+        DATA[user_id]['vbr'] = "400k"
     
         DATA[user_id]['convert']['map'] = True
         DATA[user_id]['convert']['encode'] = True
