@@ -926,7 +926,7 @@ async def vbr_callback(event, txt, user_id, chat_id):
                             edit = False
                         else:
                             return
-                await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
+                await saveoptions(user_id, 'use_vbr', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"❤ Custom Metadata 🖤 - {str(new_position)}")
 
             vbr = get_data()[user_id]['vbr']
