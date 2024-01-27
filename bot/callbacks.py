@@ -918,7 +918,7 @@ async def softremux_callback(event, txt, user_id, edit):
 async def vbr_callback(event, txt, user_id, chat_id):
             new_position = txt.split("_", 1)[1]
             edit = True
-            if txt.startswith("vbr"):
+            if txt.startswith("vbrset"):
                 if eval(new_position):
                         vbr = await get_vbr(chat_id, user_id, event, 120, "Send VBR Value")
                         if vbr:
@@ -929,10 +929,13 @@ async def vbr_callback(event, txt, user_id, chat_id):
                 await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"❤ Custom Metadata 🖤 - {str(new_position)}")
 
-            vbr = get_data()[user_id]['vbr']
+            use_vbr = get_data()[user_id]['use_vbr']
+
 
             KeyBoard = []
-            KeyBoard.append([Button.inline(f'🪀Custom Metadata - {str(vbr)} [Click To See]', 'vbr_value')])
+            KeyBoard.append([Button.inline(f'🪀VBR VALUE - {str(use_vbr)} [Click To See]', 'vbr_value')])
+        for board in gen_keyboard(bool_list, use_vbr, "vbrset", 2, False):
+                KeyBoard.append(board)
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
