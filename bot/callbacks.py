@@ -49,6 +49,7 @@ async def callback(event):
             [Button.inline('🛺 Watermark', 'watermark_settings')],
             [Button.inline('🍧 Merge', 'merge_settings')],
             [Button.inline('❤ Convert 🖤', 'convert_settings')],
+            [Button.inline('🖤 VBR ❤', 'vbr_settings')],
             [Button.inline('🚍 HardMux', 'hardmux_settings')],
             [Button.inline('🎮 SoftMux', 'softmux_settings')],
             [Button.inline('🛩SoftReMux', 'softremux_settings')],
@@ -181,6 +182,11 @@ async def callback(event):
         elif txt=="custom_metedata":
             cmetadata = get_data()[user_id]['metadata']
             await event.answer(f"❤ Current Metadata 🖤: {str(cmetadata)}", alert=True)
+            return
+
+        elif txt=="vbr":
+            cmetadata = get_data()[user_id]['vbr']
+            await event.answer(f"❤ Current VBR 🖤: {str(vbr)}", alert=True)
             return
         
         
@@ -885,4 +891,36 @@ async def softremux_callback(event, txt, user_id, edit):
                 except:
                     pass
                 await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ Softremux Settings", buttons=KeyBoard)
+            return
+
+
+###############------VBR------###############
+async def vbr_callback(event, txt, user_id, chat_id):
+            new_position = txt.split("_", 1)[1]
+            edit = True
+            if txt.startswith("vbr"):
+                if eval(new_position):
+                        metadata = await get_metadata(chat_id, user_id, event, 120, "Send Metadata Title")
+                        if metadata:
+                            await saveoptions(user_id, 'metadata', metadata, SAVE_TO_DATABASE)
+                            edit = False
+                        else:
+                            return
+                await saveoptions(user_id, 'vbr', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"❤ Custom Metadata 🖤 - {str(new_position)}")
+
+            vbr = get_data()[user_id]['vbr']
+
+            KeyBoard = []
+            KeyBoard.append([Button.inline(f'🪀Custom Metadata - {str(vbr)} [Click To See]', 'custom_metedata')])
+            for board in gen_keyboard(bool_list, vbr, "vbr", 2, False):
+                KeyBoard.append(board)
+            KeyBoard.append([Button.inline(f'↩Back', 'settings')])
+            if edit:
+                try:
+                    await event.edit("⚙ VBR Settings", buttons=KeyBoard)
+                except:
+                    pass
+            else:
+                await TELETHON_CLIENT.send_message(chat_id, "⚙ VBR Settings", buttons=KeyBoard)
             return
