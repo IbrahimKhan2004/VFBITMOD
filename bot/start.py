@@ -913,6 +913,7 @@ async def _settings(event):
         [Button.inline('🛺 Watermark', 'watermark_settings')],
         [Button.inline('🍧 Merge', 'merge_settings')],
         [Button.inline('🚜 Convert', 'convert_settings')],
+        [Button.inline('🖤 VBR ❤', 'vbr_settings')],
         [Button.inline('🚍 HardMux', 'hardmux_settings')],
         [Button.inline('🎮 SoftMux', 'softmux_settings')],
         [Button.inline('🛩SoftReMux', 'softremux_settings')],
