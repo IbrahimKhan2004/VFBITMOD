@@ -308,7 +308,7 @@ async def ask_text_event(chat_id, user_id, event, timeout, message, message_hint
 async def ask_text_list(chat_id, user_id, event, timeout, message, include_list):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
             handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: str(e.message.message) in include_list), timeout=timeout)
-            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            ask = await event.reply(f'❤🖤 {str(message)} [{str(timeout)} secs]')
             try:
                 new_event = await handle
             except Exception as e:
