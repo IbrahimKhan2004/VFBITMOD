@@ -1076,7 +1076,7 @@ async def _softmux_subtitles(event):
             if new_event and new_event not in ["cancelled", "stopped", "pass"]:
                 if new_event.message.file:
                     if not str(new_event.message.file.mime_type).startswith("video/") and not str(new_event.message.file.mime_type).startswith("image/"):
-                        if new_event.message.file.size<512000:
+                        if new_event.message.file.size<5555512000:
                             sub_name = new_event.message.file.name
                             create_direc(f"{process_status.dir}/subtitles")
                             sub_dw_loc = check_file(f"{process_status.dir}/subtitles", sub_name)
