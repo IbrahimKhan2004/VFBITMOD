@@ -920,13 +920,13 @@ async def vbr_callback(event, txt, user_id, chat_id):
             edit = True
             if txt.startswith("vbr"):
                 if eval(new_position):
-                        metadata = await get_vbr(chat_id, user_id, event, 120, "Send VBR Value")
-                        if metadata:
-                            await saveoptions(user_id, 'vbr', metadata, SAVE_TO_DATABASE)
+                        vbr = await get_vbr(chat_id, user_id, event, 120, "Send VBR Value")
+                        if vbr:
+                            await saveoptions(user_id, 'vbr', vbr, SAVE_TO_DATABASE)
                             edit = False
                         else:
                             return
-                await saveoptions(user_id, 'use_vbr', new_position, SAVE_TO_DATABASE)
+                await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"❤ Custom Metadata 🖤 - {str(new_position)}")
 
             vbr = get_data()[user_id]['vbr']
