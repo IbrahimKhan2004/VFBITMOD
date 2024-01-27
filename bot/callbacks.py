@@ -128,6 +128,10 @@ async def callback(event):
             await convert_callback(event, txt, user_id, True)
             return
         
+        elif txt.startswith("vbr"):
+            await vbr_callback(event, txt, user_id, True)
+            return
+        
         elif txt.startswith("hardmux"):
             await hardmux_callback(event, txt, user_id, True)
             return
@@ -184,9 +188,9 @@ async def callback(event):
             await event.answer(f"❤ Current Metadata 🖤: {str(cmetadata)}", alert=True)
             return
 
-        elif txt=="vbr":
-            cmetadata = get_data()[user_id]['vbr']
-            await event.answer(f"❤ Current VBR 🖤: {str(vbr)}", alert=True)
+        elif txt=="vbr_value":
+            cvbr = get_data()[user_id]['vbr']
+            await event.answer(f"❤ Current VBR 🖤: {str(cvbr)}", alert=True)
             return
         
         
@@ -216,11 +220,11 @@ def gen_keyboard(values_list, current_value, callvalue, items, hide):
         else:
             if not hide:
                 if callvalue!="watermarkposition":
-                    text = f"{str(x)} 🟢"
+                    text = f"{str(x)} ❤"
                 else:
-                    text = f"{str(ws_name[x])} 🟢"
+                    text = f"{str(ws_name[x])} ❤"
             else:
-                text = f"🟢"
+                text = f"❤"
         keyboard = Button.inline(text, value)
         current_list.append(keyboard)
     boards.append(current_list)
@@ -242,6 +246,22 @@ async def get_metadata(chat_id, user_id, event, timeout, message):
                 if ele in metadata:
                         metadata = metadata.replace(ele, '')
             return metadata
+    
+async def get_vbr(chat_id, user_id, event, timeout, message):
+    async with TELETHON_CLIENT.conversation(chat_id) as conv:
+            handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
+            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            try:
+                new_event = await handle
+            except Exception as e:
+                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                LOGGER.info(e)
+                return False
+            vbr = new_event.message.message
+            for ele in punc:
+                if ele in vbr:
+                        vbr = vbr.replace(ele, '')
+            return vbr
 
 
 async def get_text_data(chat_id, user_id, event, timeout, message):
@@ -900,21 +920,19 @@ async def vbr_callback(event, txt, user_id, chat_id):
             edit = True
             if txt.startswith("vbr"):
                 if eval(new_position):
-                        metadata = await get_metadata(chat_id, user_id, event, 120, "Send Metadata Title")
+                        metadata = await get_vbr(chat_id, user_id, event, 120, "Send VBR Value")
                         if metadata:
-                            await saveoptions(user_id, 'metadata', metadata, SAVE_TO_DATABASE)
+                            await saveoptions(user_id, 'vbr', metadata, SAVE_TO_DATABASE)
                             edit = False
                         else:
                             return
-                await saveoptions(user_id, 'vbr', eval(new_position), SAVE_TO_DATABASE)
+                await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"❤ Custom Metadata 🖤 - {str(new_position)}")
 
             vbr = get_data()[user_id]['vbr']
 
             KeyBoard = []
-            KeyBoard.append([Button.inline(f'🪀Custom Metadata - {str(vbr)} [Click To See]', 'custom_metedata')])
-            for board in gen_keyboard(bool_list, vbr, "vbr", 2, False):
-                KeyBoard.append(board)
+            KeyBoard.append([Button.inline(f'🪀Custom Metadata - {str(vbr)} [Click To See]', 'vbr_value')])
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
