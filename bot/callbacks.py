@@ -129,7 +129,7 @@ async def callback(event):
             return
         
         elif txt.startswith("vbr"):
-            await vbr_callback(event, txt, user_id)
+            await vbr_callback(event, txt, user_id, chat_id)
             return
         
         elif txt.startswith("hardmux"):
