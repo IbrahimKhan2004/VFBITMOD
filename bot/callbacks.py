@@ -934,7 +934,7 @@ async def vbr_callback(event, txt, user_id, chat_id):
 
             KeyBoard = []
             KeyBoard.append([Button.inline(f'🪀VBR VALUE - {str(use_vbr)} [Click To See]', 'vbr_value')])
-        for board in gen_keyboard(bool_list, use_vbr, "vbrset", 2, False):
+            for board in gen_keyboard(bool_list, use_vbr, "vbrset", 2, False):
                 KeyBoard.append(board)
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
