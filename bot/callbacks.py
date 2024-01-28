@@ -969,7 +969,6 @@ async def vbrcrf_callback(event, txt, user_id, chat_id):
             KeyBoard.append([Button.inline(f'🖤CRF VALUE - {str(use_crf)} [Click To See]', 'crf_value')])
             for board in gen_keyboard(bool_list, use_crf, "setcrf", 2, False):
                 KeyBoard.append(board)
-                    
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
