@@ -229,16 +229,19 @@ def get_commands(process_status):
             file_duration = get_video_duration(input_file)
             command = ['zender','-hide_banner',
                                             '-progress', f"{log_file}",
-                                            '-i', f'{input_file}']
-
-            command+= ["-c:v", "copy"]
-        
+                                            '-i', f'{input_file}',
+                                            '-vf', f"scale=-2:{process_status.convert_quality}"]
             if convert_map:
                 command+=['-map','0:v?',
                                             '-map',f'{str(process_status.amap_options)}?',
                                             "-map", "0:s?"]
             if convert_copysub:
                 command+= ["-c:s", "copy"]
+
+            if convert_vbit=='8Bit':
+                command+= ['-pix_fmt','yuv420p']
+            else:
+                command+= ['-pix_fmt','yuv420p10le']
 
             if convert_acodec=='OPUS':
                codec = 'libopus'
@@ -248,8 +251,21 @@ def get_commands(process_status):
                codec = 'eac3'
             else:
                codec = 'aac'
-                
-            command+= ['-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
+
+            if convert_encode:
+                if convert_encoder=='libx265':
+                        command+= ['-vcodec','libx265','-vtag', 'hvc1']
+                else:
+                        command+= ['-vcodec','libx264']
+            else:
+                command+= ["-c:a", "copy"]
+            convert_use_queue_size = get_data()[process_status.user_id]['convert']['use_queue_size']
+            if convert_use_queue_size:
+                convert_queue_size = get_data()[process_status.user_id]['convert']['queue_size']
+                command+= ['-max_muxing_queue_size', f'{str(convert_queue_size)}']
+            if convert_sync:
+                command+= ['-vsync', '1', '-async', '-1']
+            command+= ['-preset', convert_preset, '-crf', f'{str(convert_crf)}','-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
             return command, log_file, input_file, output_file, file_duration
     
     
