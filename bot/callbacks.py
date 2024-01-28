@@ -193,9 +193,9 @@ async def callback(event):
             await event.answer(f"❤ Current VBR 🖤: {str(cvbr)}", alert=True)
             return
 
-        elif txt=="cbr_value":
-            cvbr = get_data()[user_id]['cbr']
-            await event.answer(f"❤ Current VBR 🖤: {str(cvbr)}", alert=True)
+        elif txt=="crf_value":
+            ccrf = get_data()[user_id]['crf']
+            await event.answer(f"❤ Current VBR 🖤: {str(ccrf)}", alert=True)
             return
         
         return
