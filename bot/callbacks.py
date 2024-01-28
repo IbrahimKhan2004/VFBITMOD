@@ -268,6 +268,24 @@ async def get_vbr(chat_id, user_id, event, timeout, message):
             return vbr
 
 
+async def get_crf(chat_id, user_id, event, timeout, message):
+    async with TELETHON_CLIENT.conversation(chat_id) as conv:
+            handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
+            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            try:
+                new_event = await handle
+            except Exception as e:
+                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                LOGGER.info(e)
+                return False
+            crf = new_event.message.message
+            for ele in punc:
+                if ele in crf:
+                        crf = crf.replace(ele, '')
+            return crf
+
+
+
 async def get_text_data(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
             handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
@@ -935,8 +953,8 @@ async def vbr_callback(event, txt, user_id, chat_id):
 
             if txt.startswith("crfset"):
                 if eval(new_position):
-                        vbr = await get_vbr(chat_id, user_id, event, 120, "Send VBR Value")
-                        if vbr:
+                        crf = await get_crf(chat_id, user_id, event, 120, "Send CRF Value")
+                        if crf:
                             await saveoptions(user_id, 'crf', crf, SAVE_TO_DATABASE)
                             edit = False
                         else:
