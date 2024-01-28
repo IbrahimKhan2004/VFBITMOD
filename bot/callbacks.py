@@ -49,7 +49,7 @@ async def callback(event):
             [Button.inline('🛺 Watermark', 'watermark_settings')],
             [Button.inline('🍧 Merge', 'merge_settings')],
             [Button.inline('❤ Convert 🖤', 'convert_settings')],
-            [Button.inline('🖤 VBR ❤', 'vbr_settings')],
+            [Button.inline('🖤 VBR/CRF ❤', 'vbrcrf_settings')],
             [Button.inline('🚍 HardMux', 'hardmux_settings')],
             [Button.inline('🎮 SoftMux', 'softmux_settings')],
             [Button.inline('🛩SoftReMux', 'softremux_settings')],
@@ -128,8 +128,8 @@ async def callback(event):
             await convert_callback(event, txt, user_id, True)
             return
         
-        elif txt.startswith("vbr"):
-            await vbr_callback(event, txt, user_id, chat_id)
+        elif txt.startswith("vbrcrf"):
+            await vbrcrf_callback(event, txt, user_id, chat_id)
             return
         
         elif txt.startswith("hardmux"):
@@ -937,7 +937,7 @@ async def softremux_callback(event, txt, user_id, edit):
 
 
 ###############------VBR------###############
-async def vbr_callback(event, txt, user_id, chat_id):
+async def vbrcrf_callback(event, txt, user_id, chat_id):
             new_position = txt.split("_", 1)[1]
             edit = True
             if txt.startswith("vbrset"):
@@ -951,7 +951,7 @@ async def vbr_callback(event, txt, user_id, chat_id):
                 await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"❤ VBR 🖤 - {str(new_position)}")
 
-            elif txt.startswith("crfset"):
+            if txt.startswith("crfset"):
                 if eval(new_position):
                         crf = await get_crf(chat_id, user_id, event, 120, "Send CRF Value")
                         if crf:
