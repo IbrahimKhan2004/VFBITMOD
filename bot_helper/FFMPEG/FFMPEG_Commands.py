@@ -214,6 +214,8 @@ def get_commands(process_status):
             convert_abit = get_data()[process_status.user_id]['convert']['abit']
             convert_acodec = get_data()[process_status.user_id]['convert']['acodec']
             convert_achannel = get_data()[process_status.user_id]['convert']['achannel']
+
+            convert_qubality = get_data()[process_status.user_id]['convert']['convert_list']
         
             convert_map = get_data()[process_status.user_id]['convert']['map']
             convert_encoder = get_data()[process_status.user_id]['convert']['encoder']
@@ -231,6 +233,8 @@ def get_commands(process_status):
                                             '-progress', f"{log_file}",
                                             '-i', f'{input_file}',
                                             '-vf', f"scale=-2:{process_status.convert_quality}"]
+
+            
             if convert_map:
                 command+=['-map','0:v?',
                                             '-map',f'{str(process_status.amap_options)}?',
