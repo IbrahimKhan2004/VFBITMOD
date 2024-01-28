@@ -261,11 +261,11 @@ async def get_vbr(chat_id, user_id, event, timeout, message):
                 await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
                 LOGGER.info(e)
                 return False
-            vbr = new_event.message.message
+            metadata = new_event.message.message
             for ele in punc:
-                if ele in vbr:
-                        vbr = vbr.replace(ele, '')
-            return vbr
+                if ele in metadata:
+                        metadata = metadata.replace(ele, '')
+            return metadata
 
 async def get_crf(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
@@ -277,11 +277,11 @@ async def get_crf(chat_id, user_id, event, timeout, message):
                 await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
                 LOGGER.info(e)
                 return False
-            crf = new_event.message.message
+            metadata = new_event.message.message
             for ele in punc:
-                if ele in crf:
-                        crf = crf.replace(ele, '')
-            return crf
+                if ele in metadata:
+                        metadata = metadata.replace(ele, '')
+            return metadata
 
 async def get_text_data(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
