@@ -931,15 +931,31 @@ async def vbr_callback(event, txt, user_id, chat_id):
                         else:
                             return
                 await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
-                await event.answer(f"❤ Custom Metadata 🖤 - {str(new_position)}")
+                await event.answer(f"❤ VBR 🖤 - {str(new_position)}")
 
-            use_vbr = get_data()[user_id]['use_vbr']
+           if txt.startswith("crfset"):
+                if eval(new_position):
+                        vbr = await get_vbr(chat_id, user_id, event, 120, "Send VBR Value")
+                        if vbr:
+                            await saveoptions(user_id, 'crf', crf, SAVE_TO_DATABASE)
+                            edit = False
+                        else:
+                            return
+                await saveoptions(user_id, 'use_crf', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"❤ CRF 🖤 - {str(new_position)}")
+
+            us_vbr = get_data()[user_id]['use_vbr']
+            us_crf = get_data()[user_id]['use_crf']
 
 
             KeyBoard = []
             KeyBoard.append([Button.inline(f'🪀VBR VALUE - {str(use_vbr)} [Click To See]', 'vbr_value')])
-            for board in gen_keyboard(bool_list, use_vbr, "vbrset", 2, False):
+            for board in gen_keyboard(bool_list, us_vbr, "vbrset", 2, False):
                 KeyBoard.append(board)
+            KeyBoard.append([Button.inline(f'🪀CRF VALUE - {str(use_crf)} [Click To See]', 'crf_value')])
+            for board in gen_keyboard(bool_list, us_crf, "crfset", 2, False):
+                KeyBoard.append(board)
+                    
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
