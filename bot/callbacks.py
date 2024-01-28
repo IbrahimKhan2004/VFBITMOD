@@ -963,10 +963,10 @@ async def vbrcrf_callback(event, txt, user_id, chat_id):
             use_crf = get_data()[user_id]['use_crf']
 
             KeyBoard = []
-            KeyBoard.append([Button.inline(f'🪀VBR VALUE - {str(use_vbr)} [Click To See]', 'vbr_value')])
+            KeyBoard.append([Button.inline(f'🖤VBR VALUE - {str(use_vbr)} [Click To See]', 'vbr_value')])
             for board in gen_keyboard(bool_list, use_vbr, "vbrset", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'🪀CRF VALUE - {str(use_crf)} [Click To See]', 'crf_value')])
+            KeyBoard.append([Button.inline(f'🖤CRF VALUE - {str(use_crf)} [Click To See]', 'crf_value')])
             for board in gen_keyboard(bool_list, use_crf, "crfset", 2, False):
                 KeyBoard.append(board)
                     
