@@ -950,7 +950,6 @@ async def vbr_callback(event, txt, user_id, chat_id):
                             return
                 await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"❤ VBR 🖤 - {str(new_position)}")
-
             elif txt.startswith("crfset"):
                 if eval(new_position):
                         crf = await get_crf(chat_id, user_id, event, 120, "Send CRF Value")
@@ -964,7 +963,6 @@ async def vbr_callback(event, txt, user_id, chat_id):
 
             use_vbr = get_data()[user_id]['use_vbr']
             use_crf = get_data()[user_id]['use_crf']
-
 
             KeyBoard = []
             KeyBoard.append([Button.inline(f'🪀VBR VALUE - {str(use_vbr)} [Click To See]', 'vbr_value')])
