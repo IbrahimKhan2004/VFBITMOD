@@ -195,7 +195,7 @@ async def callback(event):
 
         elif txt=="crf_value":
             ccrf = get_data()[user_id]['crf']
-            await event.answer(f"❤ Current VBR 🖤: {str(ccrf)}", alert=True)
+            await event.answer(f"❤ Current CRF 🖤: {str(ccrf)}", alert=True)
             return
         
         return
