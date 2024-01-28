@@ -948,7 +948,6 @@ async def vbrcrf_callback(event, txt, user_id, chat_id):
                             return
                 await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"❤ VBR 🖤 - {str(new_position)}")
-
             elif txt.startswith("setcrf"):
                 if eval(new_position):
                         crf = await get_crf(chat_id, user_id, event, 120, "Send CRF Value")
