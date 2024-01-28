@@ -192,7 +192,11 @@ async def callback(event):
             cvbr = get_data()[user_id]['vbr']
             await event.answer(f"❤ Current VBR 🖤: {str(cvbr)}", alert=True)
             return
-        
+
+        elif txt=="cbr_value":
+            cvbr = get_data()[user_id]['cbr']
+            await event.answer(f"❤ Current VBR 🖤: {str(cvbr)}", alert=True)
+            return
         
         return
 
