@@ -267,7 +267,6 @@ async def get_vbr(chat_id, user_id, event, timeout, message):
                         vbr = vbr.replace(ele, '')
             return vbr
 
-
 async def get_crf(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
             handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
@@ -283,8 +282,6 @@ async def get_crf(chat_id, user_id, event, timeout, message):
                 if ele in crf:
                         crf = crf.replace(ele, '')
             return crf
-
-
 
 async def get_text_data(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
@@ -951,7 +948,7 @@ async def vbrcrf_callback(event, txt, user_id, chat_id):
                 await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
                 await event.answer(f"❤ VBR 🖤 - {str(new_position)}")
 
-            if txt.startswith("crfset"):
+            elif txt.startswith("crfset"):
                 if eval(new_position):
                         crf = await get_crf(chat_id, user_id, event, 120, "Send CRF Value")
                         if crf:
