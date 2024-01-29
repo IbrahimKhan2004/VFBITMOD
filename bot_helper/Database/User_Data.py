@@ -73,6 +73,8 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['hardmux']['use_queue_size'] = False
         DATA[user_id]['hardmux']['queue_size'] = '9999'
         DATA[user_id]['hardmux']['sync'] = False
+        DATA[user_id]['vbr'] = {}
+        DATA[user_id]['vbr']['vbr'] = '200k'
         DATA[user_id]['compress'] = {}
         DATA[user_id]['compress']['preset'] = 'ultrafast'
         DATA[user_id]['compress']['crf'] = '23'
