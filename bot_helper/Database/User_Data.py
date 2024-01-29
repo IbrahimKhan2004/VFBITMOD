@@ -111,12 +111,6 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['convert']['type'] = 'CRF'
         DATA[user_id]['convert']['encude'] = 'H.264'
     
-        DATA[user_id]['use_vbr'] = True
-        DATA[user_id]['vbr'] = "400k"
-
-        DATA[user_id]['use_crf'] = True
-        DATA[user_id]['crf'] = "22"
-    
         DATA[user_id]['convert']['map'] = True
 
         DATA[user_id]['convert']['encoder'] = 'libx265'
