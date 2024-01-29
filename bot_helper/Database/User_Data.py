@@ -105,7 +105,7 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['convert']['preset'] = 'ultrafast'
         DATA[user_id]['convert']['use_crf'] = False
         DATA[user_id]['convert']['crf'] = '23'
-        DATA[user_id]['convert']['vrf'] = '100k'
+        DATA[user_id]['convert']['vbr'] = '100k'
         DATA[user_id]['convert']['qubality'] = '480p [720x480]'
         DATA[user_id]['convert']['encode'] = 'Video'
         DATA[user_id]['convert']['type'] = 'CRF'
