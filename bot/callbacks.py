@@ -890,10 +890,10 @@ async def video_callback(event, txt, user_id, edit):
             if txt.startswith("encude"):
                 await saveconfig(user_id, 'convert', 'encude', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅FOrmant - {str(new_position)}")
-            elif txt.startswith("convertvbit"):
+            elif txt.startswith("vbit"):
                 await saveconfig(user_id, 'convert', 'vbit', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert VideoBit - {str(new_position)}")
-            elif txt.startswith("convertquality"):
+            elif txt.startswith("quality"):
                 await saveconfig(user_id, 'convert', 'qubality', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Quality - {str(new_position)}")
 
@@ -906,10 +906,10 @@ async def video_callback(event, txt, user_id, edit):
             for board in gen_keyboard(encude_list, convert_encude, "encude", 2, False):
                 KeyBoard.append(board)
             KeyBoard.append([Button.inline(f'❤ VideoBit - {str(convert_vbit)}', 'L3G3N7')])
-            for board in gen_keyboard(vcodec_list, convert_vbit, "convertvbit", 2, False):
+            for board in gen_keyboard(vbit_list, convert_vbit, "vbit", 2, False):
                 KeyBoard.append(board)
             KeyBoard.append([Button.inline(f'❤ Resolution - {str(convert_qubality)}', 'L3G3N7')])
-            for board in gen_keyboard(qubality_list, convert_qubality, "convertquality", 2, False):
+            for board in gen_keyboard(qubality_list, convert_qubality, "qubality", 2, False):
                 KeyBoard.append(board)
 
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
@@ -931,13 +931,13 @@ async def video_callback(event, txt, user_id, edit):
 async def audio_callback(event, txt, user_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
-            if txt.startswith("convertachannel"):
+            if txt.startswith("achannel"):
                 await saveconfig(user_id, 'convert', 'achannel', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Audio Channel - {str(new_position)}")
-            elif txt.startswith("convertacodec"):
+            elif txt.startswith("acodec"):
                 await saveconfig(user_id, 'convert', 'acodec', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Audio codec - {str(new_position)}")
-            elif txt.startswith("convertabit"):
+            elif txt.startswith("abit"):
                 await saveconfig(user_id, 'convert', 'abit', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert AudioBit - {str(new_position)}")
 
@@ -947,13 +947,13 @@ async def audio_callback(event, txt, user_id, edit):
             convert_achannel = get_data()[user_id]['convert']['achannel']
             
             KeyBoard.append([Button.inline(f'❤ Audio Codec 🖤 - {str(convert_acodec)}', 'L3G3N7')])
-            for board in gen_keyboard(acodec_list, convert_acodec, "convertacodec", 2, False):
+            for board in gen_keyboard(acodec_list, convert_acodec, "acodec", 2, False):
                 KeyBoard.append(board)
             KeyBoard.append([Button.inline(f'❤ Audio Channel 🖤 - {str(convert_achannel)}', 'L3G3N7')])
-            for board in gen_keyboard(achannel_list, convert_achannel, "convertachannel", 2, False):
+            for board in gen_keyboard(achannel_list, convert_achannel, "achannel", 2, False):
                 KeyBoard.append(board)
             KeyBoard.append([Button.inline(f'❤ AudioBit 🖤 - {str(convert_abit)}', 'L3G3N7')])
-            for board in gen_keyboard(abit_list, convert_abit, "convertabit", 2, False):
+            for board in gen_keyboard(abit_list, convert_abit, "abit", 2, False):
                 KeyBoard.append(board)
             
 
