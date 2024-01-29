@@ -215,7 +215,7 @@ def get_commands(process_status):
             convert_acodec = get_data()[process_status.user_id]['convert']['acodec']
             convert_achannel = get_data()[process_status.user_id]['convert']['achannel']
 
-            convert_qubality = get_data()[process_status.convert_quality]
+            convert_qubality = f"{process_status.convert_quality}"
         
             convert_map = get_data()[process_status.user_id]['convert']['map']
             convert_encoder = get_data()[process_status.user_id]['convert']['encoder']
