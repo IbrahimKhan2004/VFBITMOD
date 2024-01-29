@@ -233,9 +233,9 @@ def get_commands(process_status):
                                             '-progress', f"{log_file}",
                                             '-i', f'{input_file}']
 
-            if convert_qubality=='[1080]':
+            if convert_qubality=='1080':
                command+=['-vf', 'scale=1920:1080']
-            elif convert_qubality=='[720]':
+            elif convert_qubality=='720':
                command+=['-vf', 'scale=1280:640']
             else:
                command+=['-vf', 'scale=720:360']
