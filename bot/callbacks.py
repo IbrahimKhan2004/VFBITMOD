@@ -724,7 +724,7 @@ async def convert_callback(event, txt, user_id, edit):
             convert_queue_size = get_data()[user_id]['convert']['queue_size']
             convert_sync = get_data()[user_id]['convert']['sync']
 
-            KeyBoard.append([Button.inline(f'🎧Encoder - {str(convert_encode)}', 'nik66bots')])
+            KeyBoard.append([Button.inline(f'🎧Encode - {str(convert_encode)}', 'nik66bots')])
             for board in gen_keyboard(encode_list, convert_encode, "convertencode", 2, False):
                 KeyBoard.append(board)
             KeyBoard.append([Button.inline(f'🎧Encode Type - {str(convert_type)}', 'nik66bots')])
