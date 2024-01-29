@@ -1009,11 +1009,11 @@ async def vbr_callback(event, txt, user_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
             if txt.startswith("convertvbr"):
-                await saveconfig(user_id, 'convert', 'vbr', new_position, SAVE_TO_DATABASE)
+                await saveconfig(user_id, 'vbr', 'vbr', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert VBR - {str(new_position)}")
 
 
-            convert_vbr = get_data()[user_id]['convert']['vbr']
+            convert_vbr = get_data()[user_id]['vbr']['vbr']
             
             KeyBoard.append([Button.inline(f'⚡VBR  - {str(convert_vbr)}', 'nik66bots')])
             for board in gen_keyboard(vbr_list, convert_vbr, "convertvbr", 6, False):
