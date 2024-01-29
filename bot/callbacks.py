@@ -24,6 +24,7 @@ vbr_list = ['50k', '100k', '150k', '200k', '250k', '300k', '350', '400k', '450k'
 qubality_list = ['480p [720x360]', '480p [720x480]', '720p [1280x640]', '720p [1280x720]', '1080p [1920x960]', '1080p [1920x1080]']
 encode_list = ['Video', 'Audio', 'Video Audio [Both]']
 encude_list = ['H.264', 'HEVC']
+type_list = ['CRF', 'VBR']
 
 #////////////////////////////////////Implementing////////////////////////////////////#
 
@@ -690,6 +691,10 @@ async def convert_callback(event, txt, user_id, edit):
                 await saveconfig(user_id, 'convert', 'encode', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Encode - {str(new_position)}")
 
+            elif txt.startswith("converttype"):
+                await saveconfig(user_id, 'convert', 'type', new_position, SAVE_TO_DATABASE)
+                await event.answer(f"✅Encode Type - {str(new_position)}")
+
             elif txt.startswith("convertpreset"):
                 await saveconfig(user_id, 'convert', 'preset', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Preset - {str(new_position)}")
@@ -709,6 +714,8 @@ async def convert_callback(event, txt, user_id, edit):
                 await event.answer(f"✅Convert Use SYNC - {str(new_position)}")
 
             convert_encode = get_data()[user_id]['convert']['encode']
+            convert_type = get_data()[user_id]['convert']['type']
+
             convert_preset = get_data()[user_id]['convert']['preset']
 
             convert_map = get_data()[user_id]['convert']['map']
@@ -720,8 +727,10 @@ async def convert_callback(event, txt, user_id, edit):
             KeyBoard.append([Button.inline(f'🎧Encoder - {str(convert_encode)}', 'nik66bots')])
             for board in gen_keyboard(encode_list, convert_encode, "convertencode", 2, False):
                 KeyBoard.append(board)
+            KeyBoard.append([Button.inline(f'🎧Encode Type - {str(convert_type)}', 'nik66bots')])
+            for board in gen_keyboard(type_list, convert_type, "converttype", 2, False):
+                KeyBoard.append(board)
   
-
             KeyBoard.append([Button.inline(f'🍄Copy Subtitles - {str(convert_copysub)}', 'nik66bots')])
             for board in gen_keyboard(bool_list, convert_copysub, "convertcopysub", 2, False):
                 KeyBoard.append(board)
