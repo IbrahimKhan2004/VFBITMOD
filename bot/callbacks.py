@@ -976,7 +976,7 @@ async def audio_callback(event, txt, user_id, edit):
 async def crf_callback(event, txt, user_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
-            if txt.startswith("convertcrf"):
+            if txt.startswith("crf"):
                 await saveconfig(user_id, 'convert', 'crf', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert CRF - {str(new_position)}")
 
@@ -984,7 +984,7 @@ async def crf_callback(event, txt, user_id, edit):
             convert_crf = get_data()[user_id]['convert']['crf']
             
             KeyBoard.append([Button.inline(f'⚡CRF  - {str(convert_crf)}', 'nik66bots')])
-            for board in gen_keyboard(crf_list, convert_crf, "convertcrf", 6, False):
+            for board in gen_keyboard(crf_list, convert_crf, "crf", 6, False):
                 KeyBoard.append(board)
             
 
@@ -1008,15 +1008,15 @@ async def crf_callback(event, txt, user_id, edit):
 async def vbr_callback(event, txt, user_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
-            if txt.startswith("convertvbr"):
-                await saveconfig(user_id, 'convert', 'vbr', new_position, SAVE_TO_DATABASE)
+            if txt.startswith("vbr"):
+                await saveconfig(user_id, 'vbr', 'vbr', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert VBR - {str(new_position)}")
 
 
-            convert_vbr = get_data()[user_id]['convert']['vbr']
+            vbr = get_data()[user_id]['vbr']['vbr']
             
-            KeyBoard.append([Button.inline(f'⚡VBR  - {str(convert_vbr)}', 'nik66bots')])
-            for board in gen_keyboard(vbr_list, convert_vbr, "convertvbr", 6, False):
+            KeyBoard.append([Button.inline(f'⚡VBR  - {str(vbr)}', 'nik66bots')])
+            for board in gen_keyboard(vbr_list, vbr, "vbr", 6, False):
                 KeyBoard.append(board)
             
 
