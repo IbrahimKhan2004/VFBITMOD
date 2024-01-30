@@ -976,7 +976,7 @@ async def video_callback(event, txt, user_id, edit):
             return
 
 ###############-----Audio------###############
-async def audio_callback(event, txt, user_id, edit):
+async def audio_callback(event, txt, user_id, chat_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
             if txt.startswith("audioachannel"):
@@ -987,7 +987,7 @@ async def audio_callback(event, txt, user_id, edit):
                 await event.answer(f"✅Convert Audio codec - {str(new_position)}")
             elif txt.startswith("audioabit"):
                 if eval(new_position):
-                        metadata = await get_crf(chat_id, user_id, event, 120, "Send AudioBit Value")
+                        metadata = await get_abit(chat_id, user_id, event, 120, "Send AudioBit Value")
                         if metadata:
                             await saveoptions(user_id, 'abit', metadata, SAVE_TO_DATABASE)
                             edit = False
