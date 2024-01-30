@@ -878,12 +878,8 @@ async def softremux_callback(event, txt, user_id, edit):
                     pass
                 await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ Softremux Settings", buttons=KeyBoard)
             return
-
-
-
-
+        
 ###############------Video------###############
-
 async def video_callback(event, txt, user_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
@@ -927,7 +923,6 @@ async def video_callback(event, txt, user_id, edit):
             return
 
 ###############-----Audio------###############
-
 async def audio_callback(event, txt, user_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
@@ -972,7 +967,6 @@ async def audio_callback(event, txt, user_id, edit):
             return
 
 ###############-----CRF------###############
-
 async def crf_callback(event, txt, user_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
@@ -1003,8 +997,6 @@ async def crf_callback(event, txt, user_id, edit):
             return
 
 ###############-----VBR------###############
-
-
 async def vbr_callback(event, txt, user_id, edit):
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
