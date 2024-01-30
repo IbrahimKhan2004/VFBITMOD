@@ -881,6 +881,7 @@ async def softremux_callback(event, txt, user_id, edit):
         
 ###############------Video------###############
 async def video_callback(event, txt, user_id, edit):
+    try:
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
             if txt.startswith("encude"):
@@ -921,6 +922,9 @@ async def video_callback(event, txt, user_id, edit):
                     pass
                 await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ Video Settings", buttons=KeyBoard)
             return
+    
+    except Exception as e:
+        print(f"Error in video_callback: {e}")
 
 ###############-----Audio------###############
 async def audio_callback(event, txt, user_id, edit):
@@ -998,6 +1002,7 @@ async def crf_callback(event, txt, user_id, edit):
 
 ###############-----VBR------###############
 async def vbr_callback(event, txt, user_id, edit):
+    try:
             new_position = txt.split("_", 1)[1]
             KeyBoard = []
             if txt.startswith("vbr"):
@@ -1025,3 +1030,7 @@ async def vbr_callback(event, txt, user_id, edit):
                     pass
                 await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ VBR Settings", buttons=KeyBoard)
             return
+    
+    except Exception as e:
+        print(f"Error in video_callback: {e}")
+    
