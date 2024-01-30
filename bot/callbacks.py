@@ -753,7 +753,7 @@ async def convert_callback(event, txt, user_id, edit):
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
-                    await event.edit("⚙ Convert Settings", buttons=KeyBoard)
+                    await event.edit("⚙ Encode Settings", buttons=KeyBoard)
                 except:
                     pass
             else:
@@ -761,7 +761,7 @@ async def convert_callback(event, txt, user_id, edit):
                     await event.delete()
                 except:
                     pass
-                await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ Convert Settings", buttons=KeyBoard)
+                await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ Encode Settings", buttons=KeyBoard)
             return
 
 ###############------Hardmux------###############
