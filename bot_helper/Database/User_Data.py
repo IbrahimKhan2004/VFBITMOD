@@ -42,7 +42,7 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['crf'] = {}
         DATA[user_id]['crf']['crf'] = '23'
         DATA[user_id]['vbr'] = {}
-        DATA[user_id]['vbr']['crf'] = '200k'
+        DATA[user_id]['vbr']['vbr'] = '200k'
         DATA[user_id]['watermark'] = {}
         DATA[user_id]['watermark']['position'] = '5:5'
         DATA[user_id]['watermark']['size'] = '15'
