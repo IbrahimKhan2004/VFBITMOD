@@ -125,7 +125,7 @@ async def callback(event):
             return
         
         elif txt.startswith("vbrcrf"):
-            await general_callback(event, txt, user_id, chat_id)
+            await vbrcrf_callback(event, txt, user_id, chat_id)
             return
         
         elif txt.startswith("telegram"):
