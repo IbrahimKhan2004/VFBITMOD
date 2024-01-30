@@ -60,8 +60,6 @@ async def callback(event):
             [Button.inline('🖤 Encode', 'convert_settings')],
             [Button.inline('❤ Video ', 'video_settings')],
             [Button.inline('🖤 Audio', 'audio_settings')],
-            [Button.inline('❤ VBR', 'vbr_settings')],
-            [Button.inline('🖤 CRF', 'crf_settings')],
             [Button.inline('❤ VBR / 🖤CRF', 'vbrcrf_settings')],
             [Button.inline('🚍 HardMux', 'hardmux_settings')],
             [Button.inline('🎮 SoftMux', 'softmux_settings')],
@@ -151,14 +149,6 @@ async def callback(event):
         
         elif txt.startswith("audio"):
             await audio_callback(event, txt, user_id, True)
-            return
-
-        elif txt.startswith("vbr"):
-            await vbr_callback(event, txt, user_id, True)
-            return
-        
-        elif txt.startswith("crf"):
-            await crf_callback(event, txt, user_id, True)
             return
         
         elif txt.startswith("hardmux"):
