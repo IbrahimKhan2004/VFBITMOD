@@ -239,11 +239,11 @@ def gen_keyboard(values_list, current_value, callvalue, items, hide):
         else:
             if not hide:
                 if callvalue!="watermarkposition":
-                    text = f"{str(x)} 🟢"
+                    text = f"{str(x)} ❤"
                 else:
-                    text = f"{str(ws_name[x])} 🟢"
+                    text = f"{str(ws_name[x])} ❤"
             else:
-                text = f"🟢"
+                text = f"❤"
         keyboard = Button.inline(text, value)
         current_list.append(keyboard)
     boards.append(current_list)
