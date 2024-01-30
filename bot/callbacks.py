@@ -909,7 +909,7 @@ async def video_callback(event, txt, user_id, edit):
             for board in gen_keyboard(vbit_list, convert_vbit, "vbit", 2, False):
                 KeyBoard.append(board)
             KeyBoard.append([Button.inline(f'❤ Resolution - {str(convert_qubality)}', 'L3G3N7')])
-            for board in gen_keyboard(qubality_list, convert_qubality, "qubality", 2, False):
+            for board in gen_keyboard(qubality_list, convert_qubality, "quality", 2, False):
                 KeyBoard.append(board)
 
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
