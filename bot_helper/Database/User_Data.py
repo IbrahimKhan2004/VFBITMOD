@@ -111,10 +111,8 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['convert']['qubality'] = '480p [720x480]'
         DATA[user_id]['convert']['encode'] = 'Video'
         DATA[user_id]['convert']['type'] = 'CRF'
-        DATA[user_id]['convert']['encude'] = 'H.264'
-    
+        DATA[user_id]['convert']['encude'] = 'H.264'    
         DATA[user_id]['convert']['map'] = True
-
         DATA[user_id]['convert']['encoder'] = 'libx265'
         DATA[user_id]['convert']['vbit'] = '8Bit'
         DATA[user_id]['convert']['abit'] = '128k'
