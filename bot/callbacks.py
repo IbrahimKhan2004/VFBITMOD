@@ -902,13 +902,13 @@ async def video_callback(event, txt, user_id, edit):
             video_encude = get_data()[user_id]['video']['encude']
             video_qubality = get_data()[user_id]['video']['qubality']
             
-            KeyBoard.append([Button.inline(f'❤ Encoder - {str(video_encude)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ Encoder - {str(video_encude)}', 'nik66bots')])
             for board in gen_keyboard(encude_list, video_encude, "encude", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤ VideoBit - {str(video_vbit)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ VideoBit - {str(video_vbit)}', 'nik66bots')])
             for board in gen_keyboard(vbit_list, video_vbit, "vbit", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤ Resolution - {str(video_qubality)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ Resolution - {str(video_qubality)}', 'nik66bots')])
             for board in gen_keyboard(qubality_list, video_qubality, "quality", 2, False):
                 KeyBoard.append(board)
 
@@ -946,13 +946,13 @@ async def audio_callback(event, txt, user_id, edit):
             audio_acodec = get_data()[user_id]['audio']['acodec']
             audio_achannel = get_data()[user_id]['audio']['achannel']
             
-            KeyBoard.append([Button.inline(f'❤ Audio Codec 🖤 - {str(audio_acodec)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ Audio Codec 🖤 - {str(audio_acodec)}', 'nik66bots')])
             for board in gen_keyboard(acodec_list, audio_acodec, "acodec", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤ Audio Channel 🖤 - {str(audio_achannel)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ Audio Channel 🖤 - {str(audio_achannel)}', 'nik66bots')])
             for board in gen_keyboard(achannel_list, audio_achannel, "achannel", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤ AudioBit 🖤 - {str(audio_abit)}', 'L3G3N7')])
+            KeyBoard.append([Button.inline(f'❤ AudioBit 🖤 - {str(audio_abit)}', 'nik66bots')])
             for board in gen_keyboard(abit_list, audio_abit, "abit", 2, False):
                 KeyBoard.append(board)
             
