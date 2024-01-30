@@ -208,7 +208,7 @@ def get_commands(process_status):
     
     elif process_status.process_type==Names.convert:
             convert_preset =  get_data()[process_status.user_id]['convert']['preset']
-            convert_crf = get_data()[process_status.user_id]['convert']['crf']
+            convert_crf = get_data()[process_status.user_id]['convert']['vbr']
 
             convert_vbit = get_data()[process_status.user_id]['convert']['vbit']
             convert_abit = get_data()[process_status.user_id]['convert']['abit']
