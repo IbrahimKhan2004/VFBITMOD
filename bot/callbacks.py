@@ -62,6 +62,7 @@ async def callback(event):
             [Button.inline('🖤 Audio', 'audio_settings')],
             [Button.inline('❤ VBR', 'vbr_settings')],
             [Button.inline('🖤 CRF', 'crf_settings')],
+            [Button.inline('❤ VBR / 🖤CRF', 'vbrcrf_settings')],
             [Button.inline('🚍 HardMux', 'hardmux_settings')],
             [Button.inline('🎮 SoftMux', 'softmux_settings')],
             [Button.inline('🛩SoftReMux', 'softremux_settings')],
@@ -120,6 +121,10 @@ async def callback(event):
         
         
         elif txt.startswith("general"):
+            await general_callback(event, txt, user_id, chat_id)
+            return
+        
+        elif txt.startswith("vbrcrf"):
             await general_callback(event, txt, user_id, chat_id)
             return
         
@@ -212,6 +217,16 @@ async def callback(event):
             await event.answer(f"❤ Current Metadata 🖤: {str(cmetadata)}", alert=True)
             return
         
+        elif txt=="vbr_value":
+            cmetadata = get_data()[user_id]['vbr']
+            await event.answer(f"❤ Current VBR 🖤: {str(cmetadata)}", alert=True)
+            return
+        
+        elif txt=="crf_value":
+            cmetadata = get_data()[user_id]['crf']
+            await event.answer(f"❤ Current CRF 🖤: {str(cmetadata)}", alert=True)
+            return
+        
         
         return
 
@@ -265,6 +280,38 @@ async def get_metadata(chat_id, user_id, event, timeout, message):
                 if ele in metadata:
                         metadata = metadata.replace(ele, '')
             return metadata
+    
+async def get_vbr(chat_id, user_id, event, timeout, message):
+    async with TELETHON_CLIENT.conversation(chat_id) as conv:
+            handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
+            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            try:
+                new_event = await handle
+            except Exception as e:
+                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                LOGGER.info(e)
+                return False
+            vbr = new_event.message.message
+            for ele in punc:
+                if ele in vbr:
+                        vbr = vbr.replace(ele, '')
+            return vbr
+    
+async def get_crf(chat_id, user_id, event, timeout, message):
+    async with TELETHON_CLIENT.conversation(chat_id) as conv:
+            handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
+            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            try:
+                new_event = await handle
+            except Exception as e:
+                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                LOGGER.info(e)
+                return False
+            crf = new_event.message.message
+            for ele in punc:
+                if ele in crf:
+                        crf = crf.replace(ele, '')
+            return crf
 
 
 async def get_text_data(chat_id, user_id, event, timeout, message):
@@ -959,60 +1006,49 @@ async def audio_callback(event, txt, user_id, edit):
                 await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ Audio Settings", buttons=KeyBoard)
             return
 
-###############-----CRF------###############
-async def crf_callback(event, txt, user_id, edit):
+###############-----CRF By Word------###############
+
+async def vbrcrf_callback(event, txt, user_id, chat_id):
             new_position = txt.split("_", 1)[1]
+            edit = True
+            if txt.startswith("vbrcrfvbr"):
+                if eval(new_position):
+                        metadata = await get_vbr(chat_id, user_id, event, 120, "Send VBR Value")
+                        if metadata:
+                            await saveoptions(user_id, 'vbr', metadata, SAVE_TO_DATABASE)
+                            edit = False
+                        else:
+                            return
+                await saveoptions(user_id, 'use_vbr', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"❤ VBR 🖤 - {str(new_position)}")
+            elif txt.startswith("vbrcrfcrf"):
+                if eval(new_position):
+                        metadata = await get_crf(chat_id, user_id, event, 120, "Send CRF Value")
+                        if metadata:
+                            await saveoptions(user_id, 'crf', metadata, SAVE_TO_DATABASE)
+                            edit = False
+                        else:
+                            return
+                await saveoptions(user_id, 'use_crf', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"❤ CRF 🖤 - {str(new_position)}")
+            
+            use_vbr = get_data()[user_id]['vbr']
+            use_crf = get_data()[user_id]['crf']
+
             KeyBoard = []
-            if txt.startswith("crfcrf"):
-                await saveconfig(user_id, 'crf', 'crf', new_position, SAVE_TO_DATABASE)
-                await event.answer(f"✅Convert CRF - {str(new_position)}")
-
-
-            crf_crf = get_data()[user_id]['crf']['crf']
-            
-            KeyBoard.append([Button.inline(f'⚡CRF  - {str(crf_crf)}', 'nik66bots')])
-            for board in gen_keyboard(crf_list, crf_crf, "crfcrf", 6, False):
+            KeyBoard.append([Button.inline(f'🪀VBR - {str(use_vbr)} [Click To See]', 'vbr_value')])
+            for board in gen_keyboard(bool_list, use_vbr, "vbrcrfvbr", 2, False):
                 KeyBoard.append(board)
-            
+            KeyBoard.append([Button.inline(f'🪀CRF - {str(use_crf)} [Click To See]', 'crf_value')])
+            for board in gen_keyboard(bool_list, use_crf, "vbrcrfcrf", 2, False):
+                KeyBoard.append(board)
 
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
-                    await event.edit("⚙ CRF Settings", buttons=KeyBoard)
+                    await event.edit("⚙ VBR / CRF Settings", buttons=KeyBoard)
                 except:
                     pass
             else:
-                try:
-                    await event.delete()
-                except:
-                    pass
-                await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ CRF Settings", buttons=KeyBoard)
-            return
-
-###############-----VBR------###############
-async def vbr_callback(event, txt, user_id, edit):
-            new_position = txt.split("_", 1)[1]
-            KeyBoard = []
-            if txt.startswith("vbrvbr"):
-                await saveconfig(user_id, 'vbr', 'vbr', new_position, SAVE_TO_DATABASE)
-                await event.answer(f"✅Convert VBR - {str(new_position)}")
-
-            vbr_vbr = get_data()[user_id]['vbr']['vbr']
-            
-            KeyBoard.append([Button.inline(f'⚡VBR  - {str(vbr_vbr)}', 'nik66bots')])
-            for board in gen_keyboard(vbr_list, vbr_vbr, "vbrvbr", 6, False):
-                KeyBoard.append(board)
-            
-            KeyBoard.append([Button.inline(f'↩Back', 'settings')])
-            if edit:
-                try:
-                    await event.edit("⚙ VBR Settings", buttons=KeyBoard)
-                except:
-                    pass
-            else:
-                try:
-                    await event.delete()
-                except:
-                    pass
-                await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ VBR Settings", buttons=KeyBoard)
+                await TELETHON_CLIENT.send_message(chat_id, "⚙ VBR / CRF Settings", buttons=KeyBoard)
             return
