@@ -218,13 +218,13 @@ async def callback(event):
             return
         
         elif txt=="vbr_value":
-            cmetadata = get_data()[user_id]['vbr']
-            await event.answer(f"❤ Current VBR 🖤: {str(cmetadata)}", alert=True)
+            cvbr = get_data()[user_id]['vbr']
+            await event.answer(f"❤ Current VBR 🖤: {str(cvbr)}", alert=True)
             return
         
         elif txt=="crf_value":
-            cmetadata = get_data()[user_id]['crf']
-            await event.answer(f"❤ Current CRF 🖤: {str(cmetadata)}", alert=True)
+            ccrf = get_data()[user_id]['crf']
+            await event.answer(f"❤ Current CRF 🖤: {str(ccrf)}", alert=True)
             return
         
         
