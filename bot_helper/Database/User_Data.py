@@ -73,8 +73,6 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['hardmux']['use_queue_size'] = False
         DATA[user_id]['hardmux']['queue_size'] = '9999'
         DATA[user_id]['hardmux']['sync'] = False
-        DATA[user_id]['vbr'] = {}
-        DATA[user_id]['vbr']['vbr'] = '200k'
         DATA[user_id]['compress'] = {}
         DATA[user_id]['compress']['preset'] = 'ultrafast'
         DATA[user_id]['compress']['crf'] = '23'
@@ -107,11 +105,11 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['convert']['preset'] = 'ultrafast'
         DATA[user_id]['convert']['use_crf'] = False
         DATA[user_id]['convert']['crf'] = '23'
-        DATA[user_id]['convert']['vbr'] = '100k'
+        DATA[user_id]['convert']['vbr'] = '300k'
         DATA[user_id]['convert']['qubality'] = '480p [720x480]'
         DATA[user_id]['convert']['encode'] = 'Video'
         DATA[user_id]['convert']['type'] = 'CRF'
-        DATA[user_id]['convert']['encude'] = 'H.264'    
+        DATA[user_id]['convert']['encude'] = 'H.264'
         DATA[user_id]['convert']['map'] = True
         DATA[user_id]['convert']['encoder'] = 'libx265'
         DATA[user_id]['convert']['vbit'] = '8Bit'
