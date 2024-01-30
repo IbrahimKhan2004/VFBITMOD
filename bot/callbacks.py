@@ -19,8 +19,6 @@ abit_list = ['64k', '96k', '128k', '160k', '192k', '256k', '320k', '512k', '640k
 achannel_list = ['2', '6']
 
 #////////////////////////////////////Implement////////////////////////////////////#
-crf_list = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50']
-vbr_list = ['50k', '100k', '150k', '200k', '250k', '300k', '350k', '400k', '450k', '500k', '550k', '600k', '650k', '700k', '750k', '800k', '850k', '900k', '950k', '1000k', '1050k', '1100k', '1150k', '1200k', '1250k', '1300k', '1350k', '1400k', '1450k', '1500k', '1550k', '1600k', '1650k', '1700k', '1750k', '1800k', '1850k', '1900k', '1950k', '2000k']
 qubality_list = ['480p [720x360]', '480p [720x480]', '720p [1280x640]', '720p [1280x720]', '1080p [1920x960]', '1080p [1920x1080]']
 encode_list = ['Video', 'Audio', 'Video Audio [Both]']
 encude_list = ['H.264', 'HEVC']
@@ -148,7 +146,7 @@ async def callback(event):
             return
         
         elif txt.startswith("audio"):
-            await audio_callback(event, txt, user_id, True)
+            await audio_callback(event, txt, user_id, chat_id, True)
             return
         
         elif txt.startswith("hardmux"):
@@ -215,6 +213,11 @@ async def callback(event):
         elif txt=="crf_value":
             ccrf = get_data()[user_id]['crf']
             await event.answer(f"❤ Current CRF 🖤: {str(ccrf)}", alert=True)
+            return
+
+        elif txt=="abit_value":
+            cabit = get_data()[user_id]['abit']
+            await event.answer(f"❤ Current AudioBit 🖤: {str(cabit)}", alert=True)
             return
         
         
@@ -302,6 +305,22 @@ async def get_crf(chat_id, user_id, event, timeout, message):
                 if ele in crf:
                         crf = crf.replace(ele, '')
             return crf
+
+async def get_abit(chat_id, user_id, event, timeout, message):
+    async with TELETHON_CLIENT.conversation(chat_id) as conv:
+            handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
+            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            try:
+                new_event = await handle
+            except Exception as e:
+                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                LOGGER.info(e)
+                return False
+            abit = new_event.message.message
+            for ele in punc:
+                if ele in abit:
+                        abit = abit.replace(ele, '')
+            return abit
 
 
 async def get_text_data(chat_id, user_id, event, timeout, message):
@@ -967,9 +986,16 @@ async def audio_callback(event, txt, user_id, edit):
                 await saveconfig(user_id, 'audio', 'acodec', new_position, SAVE_TO_DATABASE)
                 await event.answer(f"✅Convert Audio codec - {str(new_position)}")
             elif txt.startswith("audioabit"):
-                await saveconfig(user_id, 'audio', 'abit', new_position, SAVE_TO_DATABASE)
-                await event.answer(f"✅Convert AudioBit - {str(new_position)}")
-            audio_abit = get_data()[user_id]['audio']['abit']
+                if eval(new_position):
+                        metadata = await get_crf(chat_id, user_id, event, 120, "Send AudioBit Value")
+                        if metadata:
+                            await saveoptions(user_id, 'abit', metadata, SAVE_TO_DATABASE)
+                            edit = False
+                        else:
+                            return
+                await saveoptions(user_id, 'use_abit', eval(new_position), SAVE_TO_DATABASE)
+                await event.answer(f"❤ AudioBit 🖤 - {str(new_position)}")
+            use_abit = get_data()[user_id]['use_abit']
             audio_acodec = get_data()[user_id]['audio']['acodec']
             audio_achannel = get_data()[user_id]['audio']['achannel']           
             KeyBoard.append([Button.inline(f'❤ Audio Codec 🖤 - {str(audio_acodec)}', 'nik66bots')])
@@ -978,8 +1004,8 @@ async def audio_callback(event, txt, user_id, edit):
             KeyBoard.append([Button.inline(f'❤ Audio Channel 🖤 - {str(audio_achannel)}', 'nik66bots')])
             for board in gen_keyboard(achannel_list, audio_achannel, "audioachannel", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤ AudioBit 🖤 - {str(audio_abit)}', 'nik66bots')])
-            for board in gen_keyboard(abit_list, audio_abit, "audioabit", 2, False):
+            KeyBoard.append([Button.inline(f'🪀AudioBit - {str(use_abit)} [Click To See]', 'abit_value')])
+            for board in gen_keyboard(bool_list, use_abit, "audioabit", 2, False):
                 KeyBoard.append(board)
             
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
