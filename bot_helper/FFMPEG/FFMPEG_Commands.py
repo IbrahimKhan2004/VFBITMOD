@@ -308,11 +308,6 @@ def get_commands(process_status):
                 if convert_copysub:
                     command+= ["-c:s", "copy"]
 
-                if convert_vbit=='8Bit':
-                    command+= ['-pix_fmt','yuv420p']
-                else:
-                    command+= ['-pix_fmt','yuv420p10le']
-
                 if convert_acodec=='OPUS':
                     codec = 'libopus'
                 elif convert_acodec=='DD':
@@ -331,11 +326,6 @@ def get_commands(process_status):
                     command+= ['-vsync', '1', '-async', '-1']
 
                 command+= ['-preset', convert_preset]
-
-                if convert_type=='CRF':
-                    command+= ['-crf', f'{str(convert_crf)}']
-                else:
-                    command+= ['-b:v', f'{str(convert_vbr)}']
 
                 command+= ['-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
 
