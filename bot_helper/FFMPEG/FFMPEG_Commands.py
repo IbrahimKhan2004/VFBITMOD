@@ -222,13 +222,9 @@ def get_commands(process_status):
             convert_encode = get_data()[process_status.user_id]['convert']['encode']
             convert_quality = get_data()[process_status.user_id]['convert']['qubality']
             convert_type = get_data()[process_status.user_id]['convert']['type']
-            convert_crf = get_data()[process_status.user_id]['crf']['crf']
-            convert_vbr = get_data()[process_status.user_id]['vbr']['vbr']
-
-
-
-
-
+            convert_crf =  get_data()[process_status.user_id]['crf']['crf']
+            convert_vbr =  get_data()[process_status.user_id]['vbr']['vbr']
+        
             create_direc(f"{process_status.dir}/convert/")
             log_file = f"{process_status.dir}/convert/convert_logs_{process_status.process_id}.txt"
             if exists(log_file):
@@ -236,8 +232,7 @@ def get_commands(process_status):
             input_file = f'{str(process_status.send_files[-1])}'
             output_file = f"{process_status.dir}/convert/{get_output_name(process_status, convert_quality=process_status.convert_quality)}"
             file_duration = get_video_duration(input_file)
-            
-            
+                        
             if convert_encode=='Video':
                 command = ['zender','-hide_banner',
                                             '-progress', f"{log_file}",
