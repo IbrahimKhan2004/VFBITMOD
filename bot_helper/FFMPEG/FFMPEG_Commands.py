@@ -210,10 +210,9 @@ def get_commands(process_status):
             convert_preset =  get_data()[process_status.user_id]['convert']['preset']
 
             convert_vbit = get_data()[process_status.user_id]['video']['vbit']
-            convert_abit = get_data()[process_status.user_id]['audio']['abit']
+            convert_abit = get_data()[process_status.user_id]['abit']
             convert_acodec = get_data()[process_status.user_id]['audio']['acodec']
             convert_achannel = get_data()[process_status.user_id]['audio']['achannel']
-
         
             convert_map = get_data()[process_status.user_id]['convert']['map']
             convert_encoder = get_data()[process_status.user_id]['video']['encude']
