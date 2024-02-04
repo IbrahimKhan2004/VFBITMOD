@@ -208,20 +208,27 @@ def get_commands(process_status):
     
     elif process_status.process_type==Names.convert:
             convert_preset =  get_data()[process_status.user_id]['convert']['preset']
-            convert_crf = get_data()[process_status.user_id]['convert']['vbr']
 
-            convert_vbit = get_data()[process_status.user_id]['convert']['vbit']
-            convert_abit = get_data()[process_status.user_id]['convert']['abit']
-            convert_acodec = get_data()[process_status.user_id]['convert']['acodec']
-            convert_achannel = get_data()[process_status.user_id]['convert']['achannel']
+            convert_vbit = get_data()[process_status.user_id]['video']['vbit']
+            convert_abit = get_data()[process_status.user_id]['audio']['abit']
+            convert_acodec = get_data()[process_status.user_id]['audio']['acodec']
+            convert_achannel = get_data()[process_status.user_id]['audio']['achannel']
 
-            convert_qubality = f"{process_status.convert_quality}"
         
             convert_map = get_data()[process_status.user_id]['convert']['map']
-            convert_encoder = get_data()[process_status.user_id]['convert']['encoder']
+            convert_encoder = get_data()[process_status.user_id]['video']['encude']
             convert_copysub = get_data()[process_status.user_id]['convert']['copy_sub']
             convert_sync = get_data()[process_status.user_id]['convert']['sync']
             convert_encode = get_data()[process_status.user_id]['convert']['encode']
+            convert_quality = get_data()[process_status.user_id]['convert']['qubality']
+            convert_type = get_data()[process_status.user_id]['convert']['type']
+            convert_crf = get_data()[process_status.user_id]['crf']['crf']
+            convert_vbr = get_data()[process_status.user_id]['vbr']['vbr']
+
+
+
+
+
             create_direc(f"{process_status.dir}/convert/")
             log_file = f"{process_status.dir}/convert/convert_logs_{process_status.process_id}.txt"
             if exists(log_file):
@@ -229,51 +236,176 @@ def get_commands(process_status):
             input_file = f'{str(process_status.send_files[-1])}'
             output_file = f"{process_status.dir}/convert/{get_output_name(process_status, convert_quality=process_status.convert_quality)}"
             file_duration = get_video_duration(input_file)
-            command = ['zender','-hide_banner',
+            
+            
+            if convert_encode=='Video':
+                command = ['zender','-hide_banner',
                                             '-progress', f"{log_file}",
                                             '-i', f'{input_file}']
+                
+                if convert_quality=='480p [720x360]':
+                    command+=['-vf', 'scale=720:360']
+                elif convert_quality=='480p [720x480]':
+                    command+=['-vf', 'scale=720:480']
+                elif convert_quality=='720p [1280x640]':
+                    command+=['-vf', 'scale=1280:640']
+                elif convert_quality=='720p [1280x720]':
+                    command+=['-vf', 'scale=1280:720']
+                elif convert_quality=='1080p [1920x960]':
+                    command+=['-vf', 'scale=1920:960']
+                else:
+                     command+=['-vf', 'scale=1920:1080']
 
-            if convert_qubality=='1080':
-               command+=['-vf', 'scale=1920:1080']
-            elif convert_qubality=='720':
-               command+=['-vf', 'scale=1280:640']
-            else:
-               command+=['-vf', 'scale=720:360']
 
-            if convert_map:
-                command+=['-map','0:v?',
+                if convert_map:
+                    command+=['-map','0:v?',
                                             '-map',f'{str(process_status.amap_options)}?',
                                             "-map", "0:s?"]
-            if convert_copysub:
-                command+= ["-c:s", "copy"]
+                if convert_copysub:
+                    command+= ["-c:s", "copy"]
 
-            if convert_vbit=='8Bit':
-                command+= ['-pix_fmt','yuv420p']
+                if convert_vbit=='8Bit':
+                    command+= ['-pix_fmt','yuv420p']
+                else:
+                    command+= ['-pix_fmt','yuv420p10le']
+
+                if convert_encoder=='HEVC':
+                    command+= ['-vcodec','libx265','-vtag', 'hvc1']
+                else:
+                    command+= ['-vcodec','libx264']
+
+                convert_use_queue_size = get_data()[process_status.user_id]['convert']['use_queue_size']
+
+                if convert_use_queue_size:
+                    convert_queue_size = get_data()[process_status.user_id]['convert']['queue_size']
+                    command+= ['-max_muxing_queue_size', f'{str(convert_queue_size)}']
+                if convert_sync:
+                    command+= ['-vsync', '1', '-async', '-1']
+
+                command+= ['-preset', convert_preset]
+
+                if convert_type=='CRF':
+                    command+= ['-crf', f'{str(convert_crf)}']
+                else:
+                    command+= ['-b:v', f'{str(convert_vbr)}']
+
+                command+= ['-c:a', 'copy', '-y', f"{output_file}"]
+
+                return command, log_file, input_file, output_file, file_duration
+    
+            elif convert_encode=='Audio':
+                command = ['zender','-hide_banner',
+                                            '-progress', f"{log_file}",
+                                            '-i', f'{input_file}']
+                
+                command+=['-c:v', 'copy']
+
+
+                if convert_map:
+                    command+=['-map','0:v?',
+                                            '-map',f'{str(process_status.amap_options)}?',
+                                            "-map", "0:s?"]
+                if convert_copysub:
+                    command+= ["-c:s", "copy"]
+
+                if convert_vbit=='8Bit':
+                    command+= ['-pix_fmt','yuv420p']
+                else:
+                    command+= ['-pix_fmt','yuv420p10le']
+
+                if convert_acodec=='OPUS':
+                    codec = 'libopus'
+                elif convert_acodec=='DD':
+                    codec = 'ac3'
+                elif convert_acodec=='DDP':
+                    codec = 'eac3'
+                else:
+                    codec = 'aac'
+
+                convert_use_queue_size = get_data()[process_status.user_id]['convert']['use_queue_size']
+
+                if convert_use_queue_size:
+                    convert_queue_size = get_data()[process_status.user_id]['convert']['queue_size']
+                    command+= ['-max_muxing_queue_size', f'{str(convert_queue_size)}']
+                if convert_sync:
+                    command+= ['-vsync', '1', '-async', '-1']
+
+                command+= ['-preset', convert_preset]
+
+                if convert_type=='CRF':
+                    command+= ['-crf', f'{str(convert_crf)}']
+                else:
+                    command+= ['-b:v', f'{str(convert_vbr)}']
+
+                command+= ['-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
+
+                return command, log_file, input_file, output_file, file_duration
+
+            
             else:
-                command+= ['-pix_fmt','yuv420p10le']
+                command = ['zender','-hide_banner',
+                                            '-progress', f"{log_file}",
+                                            '-i', f'{input_file}']
+                
+                if convert_quality=='480p [720x360]':
+                    command+=['-vf', 'scale=720:360']
+                elif convert_quality=='480p [720x480]':
+                    command+=['-vf', 'scale=720:480']
+                elif convert_quality=='720p [1280x640]':
+                    command+=['-vf', 'scale=1280:640']
+                elif convert_quality=='720p [1280x720]':
+                    command+=['-vf', 'scale=1280:720']
+                elif convert_quality=='1080p [1920x960]':
+                    command+=['-vf', 'scale=1920:960']
+                else:
+                     command+=['-vf', 'scale=1920:1080']
 
-            if convert_acodec=='OPUS':
-               codec = 'libopus'
-            elif convert_acodec=='DD':
-               codec = 'ac3'
-            elif convert_acodec=='DDP':
-               codec = 'eac3'
-            else:
-               codec = 'aac'
 
-            if convert_encoder=='libx265':
-                command+= ['-vcodec','libx265','-vtag', 'hvc1']
-            else:
-                command+= ['-vcodec','libx264']
+                if convert_map:
+                    command+=['-map','0:v?',
+                                            '-map',f'{str(process_status.amap_options)}?',
+                                            "-map", "0:s?"]
+                if convert_copysub:
+                    command+= ["-c:s", "copy"]
 
-            convert_use_queue_size = get_data()[process_status.user_id]['convert']['use_queue_size']
-            if convert_use_queue_size:
-                convert_queue_size = get_data()[process_status.user_id]['convert']['queue_size']
-                command+= ['-max_muxing_queue_size', f'{str(convert_queue_size)}']
-            if convert_sync:
-                command+= ['-vsync', '1', '-async', '-1']
-            command+= ['-preset', convert_preset, '-b:v', f'{str(convert_crf)}','-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
-            return command, log_file, input_file, output_file, file_duration
+                if convert_vbit=='8Bit':
+                    command+= ['-pix_fmt','yuv420p']
+                else:
+                    command+= ['-pix_fmt','yuv420p10le']
+
+                if convert_acodec=='OPUS':
+                    codec = 'libopus'
+                elif convert_acodec=='DD':
+                    codec = 'ac3'
+                elif convert_acodec=='DDP':
+                    codec = 'eac3'
+                else:
+                    codec = 'aac'
+
+                if convert_encoder=='HEVC':
+                    command+= ['-vcodec','libx265','-vtag', 'hvc1']
+                else:
+                    command+= ['-vcodec','libx264']
+
+                convert_use_queue_size = get_data()[process_status.user_id]['convert']['use_queue_size']
+
+                if convert_use_queue_size:
+                    convert_queue_size = get_data()[process_status.user_id]['convert']['queue_size']
+                    command+= ['-max_muxing_queue_size', f'{str(convert_queue_size)}']
+                if convert_sync:
+                    command+= ['-vsync', '1', '-async', '-1']
+
+                command+= ['-preset', convert_preset]
+
+                if convert_type=='CRF':
+                    command+= ['-crf', f'{str(convert_crf)}']
+                else:
+                    command+= ['-b:v', f'{str(convert_vbr)}']
+
+                command+= ['-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
+
+                return command, log_file, input_file, output_file, file_duration
+            
     
     
     elif process_status.process_type==Names.hardmux:
