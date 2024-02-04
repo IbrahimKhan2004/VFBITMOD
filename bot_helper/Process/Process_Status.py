@@ -159,15 +159,17 @@ def generate_ffmpeg_status_head(user_id, pmode, input_size):
                 else:
                         qsize_text = f"**Queue Size**: False"
                 if get_data()[user_id]['convert']['encode']:
-                        encoder = get_data()[user_id]['convert']['encoder']
+                        encoder = get_data()[user_id]['video']['encude']
                 else:
                         encoder = 'False'
-                text = f"\n**SYNC**: {get_data()[user_id]['convert']['sync']} | **Preset**: {get_data()[user_id]['convert']['preset']}\n"\
-                        f"**CRF**: {get_data()[user_id]['convert']['crf']} | **Copy Subtitles**: {get_data()[user_id]['convert']['copy_sub']}\n"\
-                        f"{qsize_text} | **MAP**: {get_data()[user_id]['convert']['map']}\n"\
-                        f"**Encoder**: {encoder} | **In.Size**: {get_human_size(input_size)}\n"\
-                        f"**VideoBit**: {get_data()[user_id]['convert']['vbit']} | **AudioBit**: {get_data()[user_id]['convert']['abit']}\n"\
-                        f"**Audio Codec**: {get_data()[user_id]['convert']['acodec']} | **Audio Channel**: {get_data()[user_id]['convert']['achannel']}"
+                text = f"\n**Encode**: {encoder} | **In.Size**: {get_human_size(input_size)}\n"\
+                        f"**Resolution**: {get_data()[user_id]['video']['qubality']} | **Encode Type**: {get_data()[user_id]['convert']['type']}\n"\
+                        f"**CRF**: {get_data()[user_id]['crf']} | **VBR**: {get_data()[user_id]['vbr']}\n"\
+                        f"**VideoBit**: {get_data()[user_id]['video']['vbit']} | **AudioBit**: {get_data()[user_id]['abit']}\n"\
+                        f"**Audio Codec**: {get_data()[user_id]['audio']['acodec']} | **Audio Channel**: {get_data()[user_id]['audio']['achannel']}\n"\
+                        f"**SYNC**: {get_data()[user_id]['convert']['sync']} | **Preset**: {get_data()[user_id]['convert']['preset']}\n"\
+                        f"**Metadata**: {get_data()[user_id]['metadata']} | **Copy Subtitles**: {get_data()[user_id]['convert']['copy_sub']}\n"\
+                        f"{qsize_text} | **MAP**: {get_data()[user_id]['convert']['map']}"
                 return text
         elif pmode==Names.hardmux:
                 if get_data()[user_id]['hardmux']['use_queue_size']:
