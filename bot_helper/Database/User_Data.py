@@ -135,11 +135,11 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['convert']['convert_list'] = [720, 480]
         DATA[user_id]['custom_name'] = False
         DATA[user_id]['use_vbr'] = False
-        DATA[user_id]['vbr'] = "220k"
+        DATA[user_id]['vbr'] = '220k'
         DATA[user_id]['use_abit'] = False
-        DATA[user_id]['abit'] = "128k"
+        DATA[user_id]['abit'] = '128k'
         DATA[user_id]['use_crf'] = False
-        DATA[user_id]['crf'] = "22"
+        DATA[user_id]['crf'] = '22'
         DATA[user_id]['custom_metadata'] = False
         DATA[user_id]['metadata'] = "L3G3N7"
         DATA[user_id]['detailed_messages'] = True
