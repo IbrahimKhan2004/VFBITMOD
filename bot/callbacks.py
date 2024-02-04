@@ -261,11 +261,11 @@ def gen_keyboard(values_list, current_value, callvalue, items, hide):
 async def get_metadata(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
             handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
-            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            ask = await event.reply(f'❤ {str(message)} [{str(timeout)} secs]')
             try:
                 new_event = await handle
             except Exception as e:
-                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                await ask.reply('🤦‍♂️Timed Out! Tasked Has Been Cancelled.')
                 LOGGER.info(e)
                 return False
             metadata = new_event.message.message
@@ -277,11 +277,11 @@ async def get_metadata(chat_id, user_id, event, timeout, message):
 async def get_vbr(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
             handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
-            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            ask = await event.reply(f'❤ {str(message)} [{str(timeout)} secs]')
             try:
                 new_event = await handle
             except Exception as e:
-                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                await ask.reply('🤦‍♂️Timed Out! Tasked Has Been Cancelled.')
                 LOGGER.info(e)
                 return False
             vbr = new_event.message.message
@@ -293,11 +293,11 @@ async def get_vbr(chat_id, user_id, event, timeout, message):
 async def get_crf(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
             handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
-            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            ask = await event.reply(f'❤ {str(message)} [{str(timeout)} secs]')
             try:
                 new_event = await handle
             except Exception as e:
-                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                await ask.reply('🤦‍♂️Timed Out! Tasked Has Been Cancelled.')
                 LOGGER.info(e)
                 return False
             crf = new_event.message.message
@@ -309,11 +309,11 @@ async def get_crf(chat_id, user_id, event, timeout, message):
 async def get_abit(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
             handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
-            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            ask = await event.reply(f'❤ {str(message)} [{str(timeout)} secs]')
             try:
                 new_event = await handle
             except Exception as e:
-                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                await ask.reply('🤦‍♂️Timed Out! Tasked Has Been Cancelled.')
                 LOGGER.info(e)
                 return False
             abit = new_event.message.message
@@ -326,11 +326,11 @@ async def get_abit(chat_id, user_id, event, timeout, message):
 async def get_text_data(chat_id, user_id, event, timeout, message):
     async with TELETHON_CLIENT.conversation(chat_id) as conv:
             handle = conv.wait_event(events.NewMessage(chats=chat_id, incoming=True, from_users=[user_id], func=lambda e: e.message.message), timeout=timeout)
-            ask = await event.reply(f'*️⃣ {str(message)} [{str(timeout)} secs]')
+            ask = await event.reply(f'❤ {str(message)} [{str(timeout)} secs]')
             try:
                 new_event = await handle
             except Exception as e:
-                await ask.reply('🔃Timed Out! Tasked Has Been Cancelled.')
+                await ask.reply('🤦‍♂️Timed Out! Tasked Has Been Cancelled.')
                 LOGGER.info(e)
                 return False
             return new_event
@@ -964,7 +964,7 @@ async def video_callback(event, txt, user_id, edit):
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
-                    await event.edit("⚙ Video Settings", buttons=KeyBoard)
+                    await event.edit("🎬 Video Settings", buttons=KeyBoard)
                 except:
                     pass
             else:
@@ -972,7 +972,7 @@ async def video_callback(event, txt, user_id, edit):
                     await event.delete()
                 except:
                     pass
-                await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ Video Settings", buttons=KeyBoard)
+                await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "🎬 Video Settings", buttons=KeyBoard)
             return
 
 ###############-----Audio------###############
@@ -987,7 +987,7 @@ async def audio_callback(event, txt, user_id, chat_id, edit):
                 await event.answer(f"✅Convert Audio codec - {str(new_position)}")
             elif txt.startswith("audioabit"):
                 if eval(new_position):
-                        metadata = await get_abit(chat_id, user_id, event, 120, "Send AudioBit Value")
+                        metadata = await get_abit(chat_id, user_id, event, 120, "**Send AudioBit Value****Example :** `128k`, `760k` etc.")
                         if metadata:
                             await saveoptions(user_id, 'abit', metadata, SAVE_TO_DATABASE)
                             edit = False
@@ -998,20 +998,20 @@ async def audio_callback(event, txt, user_id, chat_id, edit):
             use_abit = get_data()[user_id]['use_abit']
             audio_acodec = get_data()[user_id]['audio']['acodec']
             audio_achannel = get_data()[user_id]['audio']['achannel']           
-            KeyBoard.append([Button.inline(f'❤ Audio Codec 🖤 - {str(audio_acodec)}', 'nik66bots')])
+            KeyBoard.append([Button.inline(f'🖤 Audio Codec - {str(audio_acodec)}', 'nik66bots')])
             for board in gen_keyboard(acodec_list, audio_acodec, "audioacodec", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'❤ Audio Channel 🖤 - {str(audio_achannel)}', 'nik66bots')])
+            KeyBoard.append([Button.inline(f'🖤 Audio Channel - {str(audio_achannel)}', 'nik66bots')])
             for board in gen_keyboard(achannel_list, audio_achannel, "audioachannel", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'🪀AudioBit - {str(use_abit)} [Click To See]', 'abit_value')])
+            KeyBoard.append([Button.inline(f'🖤 AudioBit - {str(use_abit)} [Click To See]', 'abit_value')])
             for board in gen_keyboard(bool_list, use_abit, "audioabit", 2, False):
                 KeyBoard.append(board)
             
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
-                    await event.edit("⚙ Audio Settings", buttons=KeyBoard)
+                    await event.edit("🔊 Audio Settings", buttons=KeyBoard)
                 except:
                     pass
             else:
@@ -1019,7 +1019,7 @@ async def audio_callback(event, txt, user_id, chat_id, edit):
                     await event.delete()
                 except:
                     pass
-                await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "⚙ Audio Settings", buttons=KeyBoard)
+                await Telegram.TELETHON_CLIENT.send_message(event.chat.id, "🔊 Audio Settings", buttons=KeyBoard)
             return
 
 ###############-----CRF By Word------###############
@@ -1029,7 +1029,7 @@ async def vbrcrf_callback(event, txt, user_id, chat_id):
             edit = True
             if txt.startswith("vbrcrfvbr"):
                 if eval(new_position):
-                        metadata = await get_vbr(chat_id, user_id, event, 120, "Send VBR Value")
+                        metadata = await get_vbr(chat_id, user_id, event, 120, "**Send VBR Value**\n\n**Example :** `400k`, `900k` etc.")
                         if metadata:
                             await saveoptions(user_id, 'vbr', metadata, SAVE_TO_DATABASE)
                             edit = False
@@ -1039,7 +1039,7 @@ async def vbrcrf_callback(event, txt, user_id, chat_id):
                 await event.answer(f"❤ VBR 🖤 - {str(new_position)}")
             elif txt.startswith("vbrcrfcrf"):
                 if eval(new_position):
-                        metadata = await get_crf(chat_id, user_id, event, 120, "Send CRF Value")
+                        metadata = await get_crf(chat_id, user_id, event, 120, "**Send CRF Value**\n\n**Example :** `22`, `28` etc.")
                         if metadata:
                             await saveoptions(user_id, 'crf', metadata, SAVE_TO_DATABASE)
                             edit = False
@@ -1052,19 +1052,19 @@ async def vbrcrf_callback(event, txt, user_id, chat_id):
             use_crf = get_data()[user_id]['use_crf']
 
             KeyBoard = []
-            KeyBoard.append([Button.inline(f'🪀VBR - {str(use_vbr)} [Click To See]', 'vbr_value')])
+            KeyBoard.append([Button.inline(f'❤ VBR - {str(use_vbr)} [Click To See]', 'vbr_value')])
             for board in gen_keyboard(bool_list, use_vbr, "vbrcrfvbr", 2, False):
                 KeyBoard.append(board)
-            KeyBoard.append([Button.inline(f'🪀CRF - {str(use_crf)} [Click To See]', 'crf_value')])
+            KeyBoard.append([Button.inline(f'🖤 CRF - {str(use_crf)} [Click To See]', 'crf_value')])
             for board in gen_keyboard(bool_list, use_crf, "vbrcrfcrf", 2, False):
                 KeyBoard.append(board)
 
             KeyBoard.append([Button.inline(f'↩Back', 'settings')])
             if edit:
                 try:
-                    await event.edit("⚙ VBR / CRF Settings", buttons=KeyBoard)
+                    await event.edit("❤ VBR / 🖤 CRF Settings", buttons=KeyBoard)
                 except:
                     pass
             else:
-                await TELETHON_CLIENT.send_message(chat_id, "⚙ VBR / CRF Settings", buttons=KeyBoard)
+                await TELETHON_CLIENT.send_message(chat_id, "❤ VBR / 🖤 CRF Settings", buttons=KeyBoard)
             return
