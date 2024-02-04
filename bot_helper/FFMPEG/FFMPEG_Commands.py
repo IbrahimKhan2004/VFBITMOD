@@ -3,7 +3,6 @@ from bot_helper.Others.Helper_Functions import get_video_duration
 from bot_helper.Others.Names import Names
 from os.path import isdir, splitext, exists
 from os import makedirs, remove
-import json
 
 def create_direc(direc):
     if not isdir(direc):
@@ -211,7 +210,7 @@ def get_commands(process_status):
             convert_preset =  get_data()[process_status.user_id]['convert']['preset']
 
             convert_vbit = get_data()[process_status.user_id]['video']['vbit']
-            convert_abit = get_data()[process_status.user_id]['abit']
+            convert_abit = get_data()[process_status.user_id]['audio']['abit']
             convert_acodec = get_data()[process_status.user_id]['audio']['acodec']
             convert_achannel = get_data()[process_status.user_id]['audio']['achannel']
 
@@ -223,10 +222,8 @@ def get_commands(process_status):
             convert_encode = get_data()[process_status.user_id]['convert']['encode']
             convert_quality = get_data()[process_status.user_id]['convert']['qubality']
             convert_type = get_data()[process_status.user_id]['convert']['type']
-            data_str = get_data()[process_status.user_id]['data']
-            user_data = json.loads(data_str)
-            convert_crf = user_data[1571060413]['crf']
-            convert_vbr = user_data[1571060413]['vbr']
+            convert_crf = get_data()[process_status.user_id]['crf']
+            convert_vbr = get_data()[process_status.user_id]['vbr']
         
             create_direc(f"{process_status.dir}/convert/")
             log_file = f"{process_status.dir}/convert/convert_logs_{process_status.process_id}.txt"
