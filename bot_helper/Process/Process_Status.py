@@ -162,8 +162,9 @@ def generate_ffmpeg_status_head(user_id, pmode, input_size):
                         encoder = get_data()[user_id]['video']['encude']
                 else:
                         encoder = 'False'
-                text = f"\n**Encode**: {encoder} | **In.Size**: {get_human_size(input_size)}\n"\
-                        f"**Resolution**: {get_data()[user_id]['video']['qubality']} | **Encode Type**: {get_data()[user_id]['convert']['type']}\n"\
+                text = f"\n**Encoding...**: {get_data()[user_id]['convert']['encode']}\n"\
+                        f"**Encode**: {encoder} | **In.Size**: {get_human_size(input_size)}\n"\
+                        f"**Resolution**: {get_data()[user_id]['video']['qubality']} | **EType**: {get_data()[user_id]['convert']['type']}\n"\
                         f"**CRF**: {get_data()[user_id]['crf']} | **VBR**: {get_data()[user_id]['vbr']}\n"\
                         f"**VideoBit**: {get_data()[user_id]['video']['vbit']} | **AudioBit**: {get_data()[user_id]['abit']}\n"\
                         f"**Audio Codec**: {get_data()[user_id]['audio']['acodec']} | **Audio Channel**: {get_data()[user_id]['audio']['achannel']}\n"\
