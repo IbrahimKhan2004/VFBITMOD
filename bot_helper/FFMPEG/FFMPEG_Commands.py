@@ -229,7 +229,7 @@ def get_commands(process_status):
             if exists(log_file):
                 remove(log_file)
             input_file = f'{str(process_status.send_files[-1])}'
-            output_file = f"{process_status.dir}/convert/{get_output_name(process_status, convert_quality=process_status.convert_quality)}"
+            output_file = f"{process_status.dir}/convert/{get_output_name}"
             file_duration = get_video_duration(input_file)
                         
             if convert_encode=='Video':
