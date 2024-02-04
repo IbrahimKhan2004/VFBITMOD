@@ -222,8 +222,8 @@ def get_commands(process_status):
             convert_encode = get_data()[process_status.user_id]['convert']['encode']
             convert_quality = get_data()[process_status.user_id]['convert']['qubality']
             convert_type = get_data()[process_status.user_id]['convert']['type']
-            convert_crf =  get_data()[process_status.user_id]['crf']['crf']
-            convert_vbr =  get_data()[process_status.user_id]['vbr']['vbr']
+            convert_crf = get_data()[process_status.user_id]['crf']['crf']
+            convert_vbr = get_data()[process_status.user_id]['vbr']['vbr']
         
             create_direc(f"{process_status.dir}/convert/")
             log_file = f"{process_status.dir}/convert/convert_logs_{process_status.process_id}.txt"
