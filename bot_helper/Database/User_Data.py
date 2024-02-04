@@ -36,13 +36,8 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['video']['encude'] = 'HEVC'
         DATA[user_id]['video']['vbit'] = '8Bit'
         DATA[user_id]['audio'] = {}
-        DATA[user_id]['audio']['abit'] = '64k'
         DATA[user_id]['audio']['achannel'] = '2'
         DATA[user_id]['audio']['acodec'] = 'AAC'
-        DATA[user_id]['crf'] = {}
-        DATA[user_id]['crf']['crf'] = '23'
-        DATA[user_id]['vbr'] = {}
-        DATA[user_id]['vbr']['vbr'] = '200k'
         DATA[user_id]['watermark'] = {}
         DATA[user_id]['watermark']['position'] = '5:5'
         DATA[user_id]['watermark']['size'] = '15'
