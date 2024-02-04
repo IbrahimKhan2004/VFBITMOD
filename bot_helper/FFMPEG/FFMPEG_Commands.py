@@ -284,8 +284,6 @@ def get_commands(process_status):
                     command+= ['-b:v', f'{str(convert_vbr)}']
 
                 command+= ['-c:a', 'copy', '-y', f"{output_file}"]
-
-                return command, log_file, input_file, output_file, file_duration
     
             elif convert_encode=='Audio':
                 command = ['zender','-hide_banner',
@@ -322,9 +320,6 @@ def get_commands(process_status):
                 command+= ['-preset', convert_preset]
 
                 command+= ['-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
-
-                return command, log_file, input_file, output_file, file_duration
-
             
             else:
                 command = ['zender','-hide_banner',
@@ -388,7 +383,7 @@ def get_commands(process_status):
 
                 command+= ['-c:a', codec, '-b:a', f'{str(convert_abit)}','-ac', f'{str(convert_achannel)}', '-y', f"{output_file}"]
 
-                return command, log_file, input_file, output_file, file_duration
+            return command, log_file, input_file, output_file, file_duration
             
     
     
