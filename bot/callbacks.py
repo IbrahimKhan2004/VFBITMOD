@@ -985,7 +985,7 @@ async def audio_callback(event, txt, user_id, chat_id, edit):
                 await event.answer(f"✅Convert Audio codec - {str(new_position)}")
             elif txt.startswith("audioabit"):
                 if eval(new_position):
-                        metadata = await get_abit(chat_id, user_id, event, 120, "**Send AudioBit Value****Example :** `128k`, `760k` etc.")
+                        metadata = await get_abit(chat_id, user_id, event, 120, "**Send AudioBit Value\n\n****Example :** `128k`, `760k` etc.")
                         if metadata:
                             await saveoptions(user_id, 'abit', metadata, SAVE_TO_DATABASE)
                             edit = False
