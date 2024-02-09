@@ -127,7 +127,7 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['convert']['use_queue_size'] = False
         DATA[user_id]['convert']['sync'] = False
         DATA[user_id]['convert']['queue_size'] = '9999'
-        DATA[user_id]['convert']['convert_list'] = [720, 480]
+        DATA[user_id]['convert']['convert_list'] = [480]
         DATA[user_id]['custom_name'] = False
         DATA[user_id]['use_vbr'] = False
         DATA[user_id]['vbr'] = '220k'
