@@ -107,7 +107,7 @@ async def new_user(user_id, dbsave):
         DATA[user_id]['merge']['fix_blank'] = False
         DATA[user_id]['custom_thumbnail'] = False
         DATA[user_id]['convert_video'] = False
-        DATA[user_id]['convert_quality'] = [720, 480]
+        DATA[user_id]['convert_quality'] = [480]
         DATA[user_id]['convert'] = {}
         DATA[user_id]['convert']['preset'] = 'ultrafast'
         DATA[user_id]['convert']['use_crf'] = False
