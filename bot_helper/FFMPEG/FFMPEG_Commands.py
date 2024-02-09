@@ -327,15 +327,15 @@ def get_commands(process_status):
                                             '-i', f'{input_file}']
                 
                 if convert_quality=='480p [720x360]':
-                    command+=['-vf', 'scale=720:360']
+                    command+=['-vf', f'scale=720:360']
                 elif convert_quality=='480p [720x480]':
                     command+=['-vf', 'scale=720:480']
                 elif convert_quality=='720p [1280x640]':
-                    command+=['-vf', 'scale=1280:640']
+                    command+=['-vf', f'scale=1280:640']
                 elif convert_quality=='720p [1280x720]':
-                    command+=['-vf', 'scale=1280:720']
+                    command+=['-vf', f'scale=1280:720']
                 elif convert_quality=='1080p [1920x960]':
-                    command+=['-vf', 'scale=1920:960']
+                    command+=['-vf', f'scale=1920:960']
                 else:
                      command+=['-vf', 'scale=1920:1080']
 
