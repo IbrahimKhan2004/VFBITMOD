@@ -219,7 +219,7 @@ def get_commands(process_status):
             convert_copysub = get_data()[process_status.user_id]['convert']['copy_sub']
             convert_sync = get_data()[process_status.user_id]['convert']['sync']
             convert_encode = get_data()[process_status.user_id]['convert']['encode']
-            convert_quality = get_data()[process_status.user_id]['convert']['qubality']
+            convert_quality = get_data()[process_status.user_id]['video']['qubality']
             convert_type = get_data()[process_status.user_id]['convert']['type']
             convert_crf = get_data()[process_status.user_id]['crf']
             convert_vbr = get_data()[process_status.user_id]['vbr']
