@@ -37,23 +37,8 @@ def get_commands(process_status):
             command = ['zender','-hide_banner',
                                         '-progress', f"{log_file}",
                                         '-i', f'{input_file}']
-            if compress_map:
-                command+=['-map','0:v?',
-                                            '-map',f'{str(process_status.amap_options)}?',
-                                            "-map", "0:s?"]
-            if compress_copysub:
-                command+= ["-c:s", "copy"]
-            if compress_encoder=='libx265':
-                    command+= ['-vcodec','libx265','-vtag', 'hvc1']
-            else:
-                    command+= ['-vcodec','libx264']
-            compress_use_queue_size = get_data()[process_status.user_id]['compress']['use_queue_size']
-            if compress_use_queue_size:
-                compress_queue_size = get_data()[process_status.user_id]['compress']['queue_size']
-                command+= ['-max_muxing_queue_size', f'{str(compress_queue_size)}']
-            if compress_sync:
-                command+= ['-vsync', '1', '-async', '-1']
-            command+= ['-preset', compress_preset, '-crf', f'{str(compress_crf)}', '-y', f"{output_file}"]
+            
+            command+= ['-map_metadata', '-1', '-c', 'copy', '-y', f"{output_file}"]
             return command, log_file, input_file, output_file, file_duration
     
     elif process_status.process_type==Names.watermark:
