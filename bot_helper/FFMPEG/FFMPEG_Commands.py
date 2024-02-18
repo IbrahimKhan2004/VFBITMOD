@@ -22,25 +22,28 @@ def get_output_name(process_status, convert_quality=False):
 
 
 def get_commands(process_status):
-    if process_status.process_type==Names.compress:
-            compress_encoder = get_data()[process_status.user_id]['compress']['encoder']
-            compress_preset = get_data()[process_status.user_id]['compress']['preset']
-            compress_crf = get_data()[process_status.user_id]['compress']['crf']
-            compress_map = get_data()[process_status.user_id]['compress']['map']
-            compress_copysub = get_data()[process_status.user_id]['compress']['copy_sub']
-            compress_sync = get_data()[process_status.user_id]['compress']['sync']
-            create_direc(f"{process_status.dir}/compress/")
-            log_file = f"{process_status.dir}/compress/compress_logs_{process_status.process_id}.txt"
-            input_file = f'{str(process_status.send_files[-1])}'
-            output_file = f"{process_status.dir}/compress/{get_output_name(process_status)}"
-            file_duration = get_video_duration(input_file)
-            command = ['zender','-hide_banner',
-                                        '-progress', f"{log_file}",
-                                        '-i', f'{input_file}']
-            
-            command+= ['-map_metadata', '-1', '-c', 'copy', '-y', f"{output_file}"]
-            return command, log_file, input_file, output_file, file_duration
-    
+    if process_status.process_type == Names.compress:
+        compress_encoder = get_data()[process_status.user_id]['compress']['encoder']
+        compress_preset = get_data()[process_status.user_id]['compress']['preset']
+        compress_crf = get_data()[process_status.user_id]['compress']['crf']
+        compress_map = get_data()[process_status.user_id]['compress']['map']
+        compress_copysub = get_data()[process_status.user_id]['compress']['copy_sub']
+        compress_sync = get_data()[process_status.user_id]['compress']['sync']
+        create_direc(f"{process_status.dir}/compress/")
+        log_file = f"{process_status.dir}/compress/compress_logs_{process_status.process_id}.txt"
+        input_file = f'{str(process_status.send_files[-1])}'
+        output_file = f"{process_status.dir}/compress/{get_output_name(process_status)}"
+        file_duration = get_video_duration(input_file)
+        command = ['zender', '-hide_banner',
+                   '-progress', f"{log_file}",
+                   '-i', f'{input_file}']
+        
+        # Add ffmpeg command to remux streams and remove metadata
+        ffmpeg_command = ['-map_metadata', '-1', '-c', 'copy', '-y', f"{output_file}"]
+        command += ffmpeg_command
+        
+        return command, log_file, input_file, output_file, file_duration
+
     elif process_status.process_type==Names.watermark:
         watermark_position = get_data()[process_status.user_id]['watermark']['position']
         watermark_size = get_data()[process_status.user_id]['watermark']['size']
