@@ -124,7 +124,7 @@ if get_data()[user_id]['ffmpeg_size'] and time_in_us != 0:
         status_foot += f"**ETA Size**: {str(get_human_size(eta_size))}"
     else:
         status_foot += "**ETA Size**: N/A"  # Or any other suitable message
-   return status_foot
+        return status_foot
 
 
 
