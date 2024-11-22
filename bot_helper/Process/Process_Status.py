@@ -111,25 +111,29 @@ def get_progress_bar_string(current,total):
 
 def ffmpeg_status_foot(status, user_id, start_time, time_in_us):
         status_foot = ""
-if get_dstatus_foot = ""
 if get_data()[user_id]['ffmpeg_ptime']:
     status_foot += f"\n**P.Time**: {get_readable_time(time() - start_time)}"
 
-if get_data()[user_id]['ffmpeg_size'] and time_in_us != 0:
-    if status_foot == "":
-        status_foot += "\n"
-    else:
-        status_foot += " | "
-    
-    # Ensure status.duration and time_in_us are not zero before division
-    if status.duration != 0:
+if get_data()[user_id]['ffmpeg_size']:
+    if time_in_us != 0 and status.duration != 0:
+        if status_foot == "":
+            status_foot += "\n"
+        else:
+            status_foot += " | "
+        
+        # Calculate ETA size safely
         eta_size = (status.output_size() / time_in_us) * status.duration * 1024 * 1024
         status_foot += f"**ETA Size**: {str(get_human_size(eta_size))}"
     else:
-        # Handle zero duration if necessary
-        status_foot += "**ETA Size**: Unknown"
+        # Handle cases where time_in_us or status.duration is zero
+        if status_foot == "":
+            status_foot += "\n"
+        else:
+            status_foot += " | "
+        status_foot += "**ETA Size**: N/A"
 
 return status_foot
+
 
 
 def generate_ffmpeg_status_head(user_id, pmode, input_size):
