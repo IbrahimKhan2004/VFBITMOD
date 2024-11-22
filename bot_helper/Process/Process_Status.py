@@ -114,7 +114,7 @@ def ffmpeg_status_foot(status, user_id, start_time, time_in_us):
             if get_data()[user_id]['ffmpeg_ptime']:
                 status_foot += f"\n**P.Time**: {get_readable_time(time() - start_time)}"
             if get_data()[user_id]['ffmpeg_size']:
-            if status_foot == "":
+            if status_foot == ""
             status_foot += "\n"
             else:
             status_foot += " | "
